@@ -1,3 +1,7 @@
+// Create a simple test file that should import the class, make an instance,
+// and test the behaviour by adding the same URL more than once
+// (use setTimeout to make the second call)
+
 const dos = require("./dosDetector");
 
 console.log(dos);
