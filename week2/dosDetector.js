@@ -1,9 +1,11 @@
+const EventEmitter = require("events");
+
 // 2) Simple DOS-detector file
 // Create a file dosDetector.js and paste in the code below.
 // It's the start code for an event-based control which should
 // fire (emit) an event "DosDetected" if the same URL is added more
 // than once before the time-interval TIME_BETWEEN_CALLS has expired.
-class DOS_Detector {
+class DOS_Detector extends EventEmitter {
   // timeValue = Minimum acceptable time between calls.
   constructor(timeValue) {
     super();
@@ -13,6 +15,9 @@ class DOS_Detector {
     this.TIME_BETWEEN_CALLS = timeValue;
   }
   // Method to call when a new url requests site.
+  /**
+   * @param url: String
+   */
   addUrl = url => {
     // Get current time
     const time = new Date().getTime();
@@ -24,10 +29,8 @@ class DOS_Detector {
       if (deltaTime < this.TIME_BETWEEN_CALLS) {
         console.log("TODO: Fire the 'DosDetected' event");
         //Add this info to the event {url:url,timeBetweenCalls:deltaTime}
-        // Import emitter.
-        const emitter = require("events");
         // Fire event
-        emitter.emit("DosDetected", { url: url, timeBetweenCalls: deltaTime });
+        this.emit("DosDetected", { url: url, timeBetweenCalls: deltaTime });
       }
     }
     // Add url to map with current time.
@@ -35,6 +38,7 @@ class DOS_Detector {
   };
 }
 // Export the class using nodes CommonJS module system (require/exports)
+module.exports.DOS = DOS_Detector;
 
 // Create a simple test file that should import the class, make an instance,
 // and test the behaviour by adding the same URL more than once
