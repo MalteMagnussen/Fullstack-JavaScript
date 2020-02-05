@@ -15,21 +15,21 @@ myDos.on("DosDetected", event => {
   );
 });
 
-const server = http.createServer((req, res) => {
-  if (req.url === "/api/os-info") {
-    res.setHeader("Content-Type", "application/json");
+const server = http.createServer((request, response) => {
+  if (request.url === "/api/os-info") {
+    response.setHeader("Content-Type", "application/json");
     //Return a response with OS-info, using the code implemented in part-a
     const sysInfo = require("./Exercise01");
-    res.write(JSON.stringify(sysInfo.sysInfo()));
+    response.write(JSON.stringify(sysInfo.sysInfo()));
     console.log(sysInfo.sysInfo());
-    return res.end();
+    return response.end();
   }
-  if (req.url === "/") {
-    res.setHeader("Content-Type", "text/html");
-    res.write(`<h2>Simple node HTTP server demo</h2>
+  if (request.url === "/") {
+    response.setHeader("Content-Type", "text/html");
+    response.write(`<h2>Simple node HTTP server demo</h2>
       <p>Exposes this endpoint <code>/api/os-info</code></p>
     `);
-    return res.end();
+    return response.end();
   }
 });
 server.on("connection", socket => {
