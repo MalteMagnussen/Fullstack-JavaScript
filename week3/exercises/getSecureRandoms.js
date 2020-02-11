@@ -24,7 +24,6 @@ const getSecureRandoms = async sizeList => {
   const promises = [];
   for (let index = 0; index < sizeList.length; index++) {
     const element = await makeSecureRandom(sizeList[index]);
-    console.log(element);
     promises.push(element);
   }
   return await Promise.all(promises);
