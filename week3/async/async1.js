@@ -19,7 +19,7 @@ const getDataParallel = async () => {
 
 const test = async () => {
   try {
-    const data = await getDataParallel();
+    const data = await getDataSequential();
     console.log(data);
   } catch (error) {
     console.log(error);
