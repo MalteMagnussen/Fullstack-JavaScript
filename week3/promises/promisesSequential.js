@@ -1,3 +1,5 @@
+// Example from https://youtu.be/DHD72FQmcWo
+
 var myPromise = (txt, delay) =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
