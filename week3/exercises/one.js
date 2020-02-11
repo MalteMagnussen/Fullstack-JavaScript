@@ -20,30 +20,6 @@ const crypto = require("crypto");
 
 // The 6 strings must be presented in the order given above.
 
-// You must use Nodes built in crypto module,
-// as sketched below (the asynchronous version of the function):
-// const SIZE = 48;
-
-// crypto.randomBytes(SIZE, function(err, buffer) {
-//   let secureHex = buffer.toString("hex");
-//   console.log("Should be 8 long: " + secureHex + " 8 long end. ");
-// });
-
-// // async
-// crypto.randomBytes(256, function(ex, buf) {
-//   if (ex) throw ex;
-//   console.log("Have %d bytes of random data: %s", buf.length, buf);
-// });
-
-// // sync
-// try {
-//   var buf = crypto.randomBytes(256);
-//   console.log("Have %d bytes of random data: %s", buf.length, buf);
-// } catch (ex) {
-//   // handle error
-//   // most likely, entropy sources are drained
-// }
-
 // a) First implement the functionality without promises, using callbacks.
 
 // Hint: You don't have to complete this implementation,
@@ -53,10 +29,6 @@ const myObj = {
   title: "6 Secure Randoms",
   randoms: []
 };
-// const randomExample = {
-//   length: 48,
-//   random: "A string with 48 random hex-characters"
-// };
 
 const size = 24;
 crypto.randomBytes(size, (error, buffer) => {
@@ -81,3 +53,41 @@ crypto.randomBytes(size, (error, buffer) => {
     });
   });
 });
+// a done
+
+// b) Use Promises to solve the problem.
+// Hints:
+// Create a function makeSecureRandom(size) that returns a promise,
+// using the callback based design,provided by the randomBytes(..) method.
+// Since the result from one calculation does not influence the next (only order matters),
+// use Promise.all(..) to execute the operations in parallel.
+
+const makeSecureRandom = size =>
+  new Promise((resolve, reject) => {
+    let random;
+    crypto.randomBytes(size, (error, buffer) => {
+      let secureHex = buffer.toString("hex");
+      random = {
+        length: secureHex.length,
+        random: `A string with ${secureHex.length} random hex-characters`
+      };
+    });
+    if (random) {
+      resolve(random);
+    } else {
+      reject("Something went wrong.");
+    }
+  });
+
+const getSecureRandoms = async sizeList => {
+  const promises = [];
+
+  for (let index = 0; index < sizeList.length; index++) {
+    const element = makeSecureRandom(sizeList[index]);
+    promises.push(element);
+  }
+
+  const all = await Promise.all(promises);
+
+  return all;
+};
