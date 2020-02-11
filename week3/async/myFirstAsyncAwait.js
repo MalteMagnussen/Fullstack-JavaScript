@@ -35,3 +35,31 @@ const getPlanetforFirstSpeciesInFirstMovieForPersonAsync = async id => {
     console.log(error);
   }
 };
+
+// Serial
+const serial = async () => {
+  const res1 = await fetch("https://swapi.co/api/people/1").then(res =>
+    res.json()
+  );
+  const res2 = await fetch("https://swapi.co/api/people/2").then(res =>
+    res.json()
+  );
+  console.log(res1.name);
+  console.log(res2.name);
+};
+
+// Not sequential, but async
+const parallel = async () => {
+  // These requests execute in parallel (don't use await here)
+  const promise1 = fetch("https://swapi.co/api/people/1").then(res =>
+    res.json()
+  );
+  const promise2 = fetch("https://swapi.co/api/people/2").then(res =>
+    res.json()
+  );
+  // Now use await
+  const res1 = await promise1;
+  const res2 = await promise2;
+  console.log(res1.name);
+  console.log(res2.name);
+};
