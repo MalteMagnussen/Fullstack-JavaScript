@@ -1,9 +1,9 @@
 const getSecureRandoms = require("./getSecureRandoms");
 
-getSecureRandoms([48, 40, 32, 24, 16, 8]) //any size and values ok, as long as integers
+getSecureRandoms([24, 20, 16, 12, 8, 4]) //any size and values ok, as long as integers
   .then(randoms => console.log(randoms));
 
-(async sizeList => {
-  const randoms = await getSecureRandoms([48, 40, 32, 24, 16, 8]);
+(async () => {
+  const randoms = await getSecureRandoms([24, 20, 16, 12, 8, 4]);
   console.log(randoms);
 })();
