@@ -4,10 +4,10 @@ const makeSecureRandom = size => {
   return new Promise((resolve, reject) => {
     crypto.randomBytes(size, (error, buffer) => {
       if (error) {
-        reject(error);
+        return reject(error);
       }
       let secureHex = buffer.toString("hex");
-      resolve({
+      return resolve({
         length: secureHex.length,
         random: secureHex
       });
