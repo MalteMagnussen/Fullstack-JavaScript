@@ -4,10 +4,13 @@
 // When implemented, each line in printNames() must be executed “sequentially”. Verify this with the debugger.
 
 const URL = "https://swapi.co/api/people/";
+const fetch = require("node-fetch");
 
 const fetchPerson = async url => {
   //Complete this function
-  return await fetch(url).then(res => res.json());
+  return await fetch(url)
+    .then(res => res.json())
+    .catch(err => console.log(err.message));
 };
 async function printNames() {
   console.log("Before");
