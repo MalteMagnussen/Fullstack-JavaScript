@@ -34,7 +34,7 @@ const calulateTime = async func => {
   ); // ~ 0.002 on my system
 };
 
-calulateTime(printNames);
+// calulateTime(printNames);
 
 /*
 Execution in parallel
@@ -43,3 +43,17 @@ Measure the time spent the same way as above,
 to convince yourself that; 
 knowing how and when to perform request in serial or parallel is important.
 */
+async function printNames2() {
+  console.log("Before");
+
+  const promise1 = fetchPerson(URL + "1");
+  const promise2 = fetchPerson(URL + "2");
+
+  (await Promise.all([promise1, promise2])).forEach(element =>
+    console.log(element.name)
+  );
+
+  console.log("After all");
+}
+
+calulateTime(printNames2);
