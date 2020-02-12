@@ -10,19 +10,19 @@ crypto.randomBytes(size, (error, buffer) => {
   let secureHex = buffer.toString("hex");
   myObj.randoms.push({
     length: secureHex.length,
-    random: `A string with ${secureHex.length} random hex-characters`
+    random: secureHex
   });
   crypto.randomBytes(size - 4, (error, buffer) => {
     let secureHex = buffer.toString("hex");
     myObj.randoms.push({
       length: secureHex.length,
-      random: `A string with ${secureHex.length} random hex-characters`
+      random: secureHex
     });
     crypto.randomBytes(size - 8, (error, buffer) => {
       let secureHex = buffer.toString("hex");
       myObj.randoms.push({
         length: secureHex.length,
-        random: `A string with ${secureHex.length} random hex-characters`
+        random: secureHex
       });
       console.log(JSON.stringify(myObj, null, 4));
     });

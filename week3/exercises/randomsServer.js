@@ -10,8 +10,8 @@ const server = http.createServer((request, response) => {
   if (request.url === firstEndpoint) {
     response.setHeader("Content-Type", "application/json");
     //Return a response with OS-info, using the code implemented in part-a
-    (async sizeList => {
-      const randoms = await getSecureRandoms([48, 40, 32, 24, 16, 8]);
+    (async () => {
+      const randoms = await getSecureRandoms([24, 20, 16, 12, 8, 4]);
       console.log(randoms);
       response.write(
         JSON.stringify(

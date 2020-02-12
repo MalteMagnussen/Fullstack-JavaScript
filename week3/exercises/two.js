@@ -79,7 +79,8 @@ const getPlanetforFirstSpeciesInFirstMovieForPersonAsync = async id => {
   } catch (error) {
     console.log(`UPPS: ${error}`);
   } finally {
-    console.log("Done");
+    console.log("Done Async");
   }
 };
 getPlanetforFirstSpeciesInFirstMovieForPerson(3);
+// getPlanetforFirstSpeciesInFirstMovieForPersonAsync(3);

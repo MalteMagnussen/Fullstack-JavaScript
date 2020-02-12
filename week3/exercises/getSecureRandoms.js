@@ -6,7 +6,7 @@ const makeSecureRandom = size => {
       let secureHex = buffer.toString("hex");
       resolve({
         length: secureHex.length,
-        random: `A string with ${secureHex.length} random hex-characters`
+        random: secureHex
       });
     });
   });
