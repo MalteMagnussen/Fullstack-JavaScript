@@ -13,21 +13,20 @@ const server = http.createServer((request, response) => {
     //Return a response with OS-info, using the code implemented in part-a
     (async () => {
       const albumsCollection = await getAlbums([1, 3, 5, 7, 9]);
-      const content = [];
+      let content = [];
 
       for (const albums of albumsCollection) {
-        content.push(
-          albums
-            .filter(element => {
-              return element.title.split(" ").length == 3;
-            })
-            .map(element => {
-              return {
-                id: element.id,
-                title: element.title
-              };
-            })
-        );
+        const filteredAlbum = albums
+          .filter(element => {
+            return element.title.split(" ").length == 3;
+          })
+          .map(element => {
+            return {
+              id: element.id,
+              title: element.title
+            };
+          });
+        content = [...content, ...filteredAlbum];
       }
 
       response.write(JSON.stringify(content, null, 4));
