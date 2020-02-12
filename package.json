@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/MalteMagnussen/Fullstack-JavaScript#readme",
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "performance-now": "^2.1.0"
   }
 }
