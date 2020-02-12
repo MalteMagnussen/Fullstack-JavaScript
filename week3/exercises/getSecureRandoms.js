@@ -24,4 +24,4 @@ const getSecureRandoms = async sizeList => {
   return await Promise.all(promises);
 };
 
-module.exports = getSecureRandoms;
+module.exports.getSecureRandoms = getSecureRandoms;

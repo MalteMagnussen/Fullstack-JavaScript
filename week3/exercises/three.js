@@ -35,3 +35,11 @@ const calulateTime = async func => {
 };
 
 calulateTime(printNames);
+
+/*
+Execution in parallel
+Fix the problem above, so that HTTP-requests are made in parallel.
+Measure the time spent the same way as above, 
+to convince yourself that; 
+knowing how and when to perform request in serial or parallel is important.
+*/
