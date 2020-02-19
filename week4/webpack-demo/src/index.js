@@ -17,10 +17,10 @@ function component() {
   element.appendChild(btn);
 
   // Add the image to our existing div.
-  const myIcon = new Image();
-  myIcon.src = Icon;
+  // const myIcon = new Image();
+  // myIcon.src = Icon;
 
-  element.appendChild(myIcon);
+  //element.appendChild(myIcon);
 
   return element;
 }
