@@ -11,4 +11,4 @@ function sortByName(a: Person[]) {
   return result;
 }
 
-sortByName(5);
+sortByName([]);
