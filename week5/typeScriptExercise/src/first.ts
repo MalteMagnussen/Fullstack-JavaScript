@@ -2,16 +2,16 @@ let http = require("http");
 
 interface IBook {
   title: string;
-  author: string;
-  published: Date;
-  pages: number;
+  readonly author: string;
+  published?: Date;
+  pages?: number;
 }
 
 const printBook = (book: IBook) => {
   console.log(JSON.stringify(book));
 };
 
-const makeBook = (
+const makeFullBook = (
   title: string,
   author: string,
   published: Date,
@@ -25,7 +25,7 @@ const makeBook = (
   };
 };
 
-const myBook = makeBook(
+const myBook = makeFullBook(
   "Moby-Dick",
   "Herman Melville",
   new Date("1851-10-18"),
@@ -36,4 +36,17 @@ const myBook = makeBook(
 // myBook is just an object Object.
 // but because the object fits the IBook interface,
 // the object is then accepted by printBook
+console.log("Full Book");
 printBook(myBook);
+
+const optionalBook = {
+  title: "Moby- Dick",
+  author: "Herman Melville"
+};
+
+console.log("\nOptional: ");
+printBook(optionalBook);
+
+console.log("\nreadonly: ");
+optionalBook.author = "Malte Magnussen";
+printBook(optionalBook);
