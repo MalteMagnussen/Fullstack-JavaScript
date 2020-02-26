@@ -39,7 +39,7 @@ const myBook = makeFullBook(
 console.log("Full Book");
 printBook(myBook);
 
-const optionalBook = {
+const optionalBook: IBook = {
   title: "Moby- Dick",
   author: "Herman Melville"
 };
@@ -47,6 +47,7 @@ const optionalBook = {
 console.log("\nOptional: ");
 printBook(optionalBook);
 
-console.log("\nreadonly: ");
-optionalBook.author = "Malte Magnussen";
-printBook(optionalBook);
+// Following doesnt work since author is readonly
+// console.log("\nreadonly: ");
+// optionalBook.author = "Malte Magnussen";
+// printBook(optionalBook);
