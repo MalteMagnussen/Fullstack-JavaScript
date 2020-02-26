@@ -10,6 +10,12 @@ let b = "Hello World";
 interface IPerson {
   name: string;
 }
+interface IPersonV2 {
+  firstName: string;
+  lastName: string;
+  /* Phone is optional */
+  phone?: string;
+}
 interface IAddress {
   address: string;
 }
