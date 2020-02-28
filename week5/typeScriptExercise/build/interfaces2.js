@@ -21,4 +21,8 @@ f2(myFunc);
 f2(uppercased);
 // e) Test f2 with the two implementations created in b+c.
 // f) Verify that f2 cannot be used with functions that do not obey the myFunc interface
+const test = (a, b, c) => {
+    return [a, b, c];
+};
+//f2(test);
 //# sourceMappingURL=interfaces2.js.map
