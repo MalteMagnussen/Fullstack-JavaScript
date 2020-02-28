@@ -188,13 +188,25 @@ Note: _This description is too big for a single exam-question. It will be divide
 #### ES6,7,8,ES-next and TypeScript
 
 -   Provide examples with es-next, running in a browser, using Babel and Webpack
+> Examples of _what_, exactly? 
     
 -   Explain the two strategies for improving JavaScript: Babel and ES6 (es2015) + ES-Next, versus Typescript. What does it require to use these technologies: In our backend with Node and in (many different) Browsers
+> If you wanna write modern JavaScript you can either use Babel to transpile your code (source-to-source compiling), down to a previous version of JavaScript, that can be read by all browsers (because they don't all implement all new JavaScript features instantly. 
+
+> Or you can use Typescript, which kinda does the same thing, but provides another layer of features on top of JavaScript, and also transpiles down to more primitive code, runnable by all browsers engines. 
     
 -   Provide a number of examples to demonstrate the benefits of using TypeScript, including, types, interfaces, classes and generics
-    
+> [https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week5](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week5)    
+
 -   Explain the ECMAScript Proposal Process for how new features are added to the language (the TC39 Process)
-    
+
+> I don't understand it at all, but here are some links:
+
+ > [https://tc39.es/process-document/](https://tc39.es/process-document/)
+ 
+> [https://github.com/tc39/proposals](https://github.com/tc39/proposals)
+
+> [https://medium.com/swlh/understanding-tc39-process-and-stage-3-specifications-f0b6914d5d24](https://medium.com/swlh/understanding-tc39-process-and-stage-3-specifications-f0b6914d5d24)
 
 ### Callbacks, Promises and async/await
 
@@ -223,3 +235,6 @@ Provide examples to demonstrate
     
 -   Serial or parallel execution with async/await.
 
+
+> This folder contains all the above: [https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week3](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week3)
+> Can't be bothered to sit and filter it all down into github links here. I got it all named so I can find it easily in VS Code. 
