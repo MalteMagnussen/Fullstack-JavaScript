@@ -60,6 +60,9 @@ Test the new class
 class Cylinder extends Circle {
     constructor(color, radius, height) {
         super(color, radius);
+        this.toString = () => {
+            return `\nArea of Cylinder is: ${this.area} \nand the height is: ${this._height}, \nand the volume is: ${this.volume}`;
+        };
         this._height = height;
     }
     // Surface area in this case.
@@ -80,4 +83,10 @@ class Cylinder extends Circle {
         this._height = height;
     }
 }
+let myCylinder = new Cylinder("red", 5, 10);
+console.log(myCylinder.toString());
+myCylinder.height = 20;
+console.log(myCylinder.toString());
+myCylinder.radius = 10;
+console.log(myCylinder.toString());
 //# sourceMappingURL=inheritance.js.map

@@ -92,4 +92,19 @@ class Cylinder extends Circle {
   set height(height: number) {
     this._height = height;
   }
+  toString = () => {
+    return `\nArea of Cylinder is: ${this.area} \nand the height is: ${this._height}, \nand the volume is: ${this.volume}`;
+  };
 }
+
+let myCylinder = new Cylinder("red", 5, 10);
+
+console.log(myCylinder.toString());
+
+myCylinder.height = 20;
+
+console.log(myCylinder.toString());
+
+myCylinder.radius = 10;
+
+console.log(myCylinder.toString());
