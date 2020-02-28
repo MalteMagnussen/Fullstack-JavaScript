@@ -9,6 +9,40 @@ interface IBook {
   pages?: number;
 }
 
+class Book implements IBook {
+  constructor(
+    private _title: string,
+    private readonly _author: string,
+    private _published: Date,
+    private _pages: number
+  ) {}
+  set title(title: string) {
+    this._title = title;
+  }
+  get title() {
+    return this._title;
+  }
+
+  // setAuthor(author:string) {this._author = author} // Can't do this on readonly
+  get author() {
+    return this._author;
+  }
+
+  set published(published: Date) {
+    this._published = published;
+  }
+  get published() {
+    return this._published;
+  }
+
+  set pages(pages: number) {
+    this._pages = pages;
+  }
+  get pages() {
+    return this._pages;
+  }
+}
+
 // b)
 const printBook = (book: IBook) => {
   console.log(JSON.stringify(book));
