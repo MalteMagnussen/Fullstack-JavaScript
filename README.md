@@ -43,9 +43,13 @@ Note: _This description is too big for a single exam-question. It will be divide
 
 -   Explain generally about node.js, when it “makes sense” and npm, and how it “fits” into the node echo system.
 > I'm assuming this was meant to be "eco-system"? 
+> 
 > Node helps manage packages, so that if you have many people working on the same project, everyone is using the same packages and on the same versions.
+> 
 > It manages this in the package.json file.
+> 
 > Node Package Manager (npm) also makes it easy to install and uninstall new packages in different scopes (project or global or developer only). 
+> 
 > Node can also run JavaScript via a shell, without needing to run it in the browser and then checking the developer tools there, which would be cumbersome after a while. Then its easier to just run the file via Node. 
     
 -   Explain about the Event Loop in JavaScript, including terms like: blocking, non-blocking, event loop, callback que and "other" API's. Make sure to include why this is relevant for us as developers.
