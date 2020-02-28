@@ -2,8 +2,13 @@
 # Fullstack-JavaScript
  4th Semester Fullstack JavaScript - Malte Hviid-Magnussen cph-mh748
 
-1. [Week 1 Exercises](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week1)
-2. [Week 2 Exercises](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week2/Exercises)
+| Week # and Exercise-Description Links:                                                                                                                     | Link to Answer Folder:                                                                                                                          |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Week One - [29-01-2020](https://docs.google.com/document/d/1ad-D5zPpobOUAG5cdcFt1YU3yCAqilN2KOGzrjvWnq8/edit) - FullStack Intro, Repetition of 3. semester | [Answer](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week1)                                                              |
+| Week Two - [05-02-2020](https://docs.google.com/document/d/16uX1YKzWGGz4tG112zlxp93oSTtH7SNiNvpXtdLW7nM/edit) - Node Intro, Simple Servers                 | [Answer](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week2/Exercises                                                     |
+| Week Three - [12-02-2020](https://docs.google.com/document/d/1jpqmitlHKeIcWzDdbe-jO281xFQiGywP3c2iKCDeffQ/edit) - Promises, Async Await                    | [Answer](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week3/exercises)                                                    |
+| Week Four - [19-02-2020](https://docs.google.com/document/d/1PIMMeYPqN8Qzo4qsgjjuNAC0_15RIEVjD0DbBhcaP-0/edit) - Webpack, Babel                            | [Answer](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week4)<br>Didn't have a lot of success because of outdated guides.  |
+| Week Five - [26-02-2020](https://docs.google.com/document/d/1Lxg0SkcKzBkARM3nzS-82xHZfqgDECJA9blTbIjaJTQ/edit) - TypeScript                                | [Answer](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week5/typeScriptExercise/src)                                       |
 
 
 
