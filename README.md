@@ -53,11 +53,35 @@ Note: _This description is too big for a single exam-question. It will be divide
 > Node can also run JavaScript via a shell, without needing to run it in the browser and then checking the developer tools there, which would be cumbersome after a while. Then its easier to just run the file via Node. 
     
 -   Explain about the Event Loop in JavaScript, including terms like: blocking, non-blocking, event loop, callback que and "other" API's. Make sure to include why this is relevant for us as developers.
+> JavaScript is by design single-threaded, but the engines in the browsers have WEB APIs that help make it asynchronous. 
+> 
+> I explained a bit about blocking vs non-blocking above
+> 
+> [Good site for understanding the event loop.](http://latentflip.com/loupe)
     
 -   Explain the terms JavaScript Engine (name at least one) and JavaScript Runtime Environment (name at least two)
-    
+> V8 is chromes JavaScript Engine.
+> 
+> It is what the browsers use to run javascript. 
+> 
+> It helps with WEB APIs to fx make JS asyncronous. 
+>
+> Unlike C and other compiled languages, Javascript runs in a container - a program that reads your js codes and runs them. This program must do two things
+>
+>-   parse your code and convert it to runnable commands
+>-   provide some objects to javascript so that it can interact with the outside world.
+>
+>The first part is called Engine and the second is Runtime.
+>
+> For example, the Chrome Browser and node.js use the same Engine - V8, but their Runtimes are different: in Chrome you have the  `window`, DOM objects etc, while node gives you  `require`, Buffers and processes. 
+   
 -   Explain (some) of the purposes with the tools Babel and WebPack and how they differ from each other. Use examples from the exercises.
-    
+> Babel helps compile JavaScript down to a previous version, so that if you're using next-gen JS features from fx ES2019, but the browser only handles up to ES5, then you can compile it down to ES5 and still have it work in the browser, while still writing modern code while developing. 
+
+> WebPack puts all of your code into one file. This makes your app into a Single Page Application. Everything loads at once (by default). But this can cause issues with debugging the code. You can however enable "mapping" so you can debug once again. 
+
+> Examples found here: [https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week4](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week4) 
+   
 
 #### Explain using sufficient code examples the following features in JavaScript (and node)
 
@@ -117,3 +141,4 @@ Provide examples to demonstrate
 -   Error handling with async/await
     
 -   Serial or parallel execution with async/await.
+
