@@ -1,3 +1,4 @@
+
 # Fullstack-JavaScript
  4th Semester Fullstack JavaScript - Malte Hviid-Magnussen cph-mh748
 
@@ -86,22 +87,102 @@ Note: _This description is too big for a single exam-question. It will be divide
 #### Explain using sufficient code examples the following features in JavaScript (and node)
 
 -   Variable/function-Hoisting
+> Hoisting is that variables is taken to the top of the code.
+> 
+> This means you can declare something below where you use it. 
     
 -   this in JavaScript and how it differs from what we know from Java/.net.
+> I still don't really understand `this` in JavaScript. 
+
+> In Java it just refers to whatever class you're in. 
     
--   Function Closures and the JavaScript Module Pattern
+-   Function Closures and the JavaScript Module Pattern 
+> Closure:
+> `var add = (function () {  `
+> 
+>`var counter = 0;  `
+>
+>`return  function () {counter += 1; return counter}  `
+>
+>`})();`
+>  
+>`add();  `
+>
+>`add();  `
+>
+>`add();`  
+>
+>`// the counter is now 3`
+
+> Not sure about what the JavaScript Module Pattern is. 
+
+> [https://ultimatecourses.com/blog/mastering-the-module-pattern](https://ultimatecourses.com/blog/mastering-the-module-pattern)
+
+> `const example require ('example')` <- Node Module
+
+> `const MyModule require ('./MyModule')` <- Selfmade Module in same folder. 
+
+> You can also destructure the element. If you only wish to use Feature X and Y from module Z: `const {X,Y} require ('Z')` 
+
+> [https://www.w3schools.com/nodejs/nodejs_modules.asp](https://www.w3schools.com/nodejs/nodejs_modules.asp)
     
 -   User-defined Callback Functions (writing your own functions that take a callback)
+> In JavaScript everything is an Object.
+
+> Even a function is an Object. 
+>
+>So how can we use this? 
+
+>We can pass functions as parameters to other functions, so they can get called conditionally. 
     
 -   Explain the methods map, filter  and reduce
+> They are all used on iterables / collections / arrays. They all return a new array and dont edit the original one. 
+
+> Map calls the function you gave as callback on each element in the list. 
+
+> Filter calls a function with return boolean on each element, and filters them out of the return list if the callback returns false. 
+
+> Reduce accumulates based on the callback function you hand it: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
     
 -   Provide examples of user-defined reusable modules implemented in Node.js (learnynode - 6)
+> [https://github.com/MalteMagnussen/Fullstack-JavaScript/blob/master/week2/Programming%20with%20Mosh/logger.js](https://github.com/MalteMagnussen/Fullstack-JavaScript/blob/master/week2/Programming%20with%20Mosh/logger.js)
+
+> Learn You Node [https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/learnyounode](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/learnyounode)
     
 -   Provide examples and explain the es2015 features: let, arrow functions, this, rest parameters, destructuring objects and arrays, maps/sets etc.
+
+> let is a reduced scope version of var.
+
+> arrow functions are lambdas. instead of writing `function myName() {}` you can write `const myName = () => {}` 
+
+> I don't understand `this` in JavaScript.
+
+> Rest parameters takes the rest of the parameters given to a function. So we can give a variable amount of parameters: [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters)
+
+> We can destructure objects. 
+> `myObject` or `{myFunction}`
+> So instead of having to do `myObject.myFunction` we can do `myFunction`
+
+> A set is a collection where each value may only occur once.
+
+> a map is a collection of key value pairs.
     
 -   Provide an example of ES6 inheritance and reflect over the differences between Inheritance in Java and in ES6.
+
+> [https://github.com/MalteMagnussen/Fullstack-JavaScript/blob/master/week5/typeScriptExercise/src/inheritance.ts](https://github.com/MalteMagnussen/Fullstack-JavaScript/blob/master/week5/typeScriptExercise/src/inheritance.ts)
+
+> ES6 inheritance is just syntactic sugar to make it look like java inheritance. Instead its under the hood using prototype.
     
 -   Explain and demonstrate, how to implement your own events, how to emit events and how to listen for such events
+> [https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week2/Programming%20with%20Mosh](https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week2/Programming%20with%20Mosh)
+
+> Have a look at logger.js and emitter.js
+
+> You can raise events (emitting) when something happens.
+
+> You can listen to events (listening) when X event happens and then trigger something. 
+
+> Its basically an Observer pattern
     
 
 #### ES6,7,8,ES-next and TypeScript
