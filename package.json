@@ -20,5 +20,8 @@
   "dependencies": {
     "node-fetch": "^2.6.0",
     "performance-now": "^2.1.0"
+  },
+  "devDependencies": {
+    "@hapi/joi": "^17.1.0"
   }
 }
