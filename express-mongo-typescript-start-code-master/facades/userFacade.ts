@@ -12,7 +12,15 @@ class UserFacade {
     throw Error("Not Implemented");
   }
   static deleteUser(userName: string): boolean {
-    throw Error("Not Implemented");
+    const index = users.findIndex(user => {
+      return user.name === userName;
+    });
+    if (index) {
+      users.splice(index, 1);
+      return true;
+    } else {
+      return false;
+    }
   }
   static getAllUsers(): Array<IGameUser> {
     throw new Error("Not yet implemented");
