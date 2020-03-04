@@ -56,3 +56,5 @@ class UserFacade {
     return myBoolean;
   }
 }
+
+exports.module.UserFacade = new UserFacade();
