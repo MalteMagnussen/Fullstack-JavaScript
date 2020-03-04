@@ -1,5 +1,5 @@
 const express = require("express");
-const Joi = require("joi");
+const Joi = require("@hapi/joi");
 
 const app = express();
 
@@ -20,18 +20,12 @@ app.get(`/api/courses`, (req, res) => {
 });
 
 app.post("/api/courses", (req, res) => {
-  const schema = {
-    name: Joi.string()
-      .min(3)
-      .required()
-  };
-
-  const result = Joi.validate(req.body, schema);
+  const { error } = validateCourse(req.body);
 
   // Errorhandling
-  if (result.error) {
+  if (error) {
     // 400 Bad Request
-    res.status(400).send(result.error.details[0].message);
+    res.status(400).send(error.details[0].message);
     return;
   }
 
@@ -40,13 +34,24 @@ app.post("/api/courses", (req, res) => {
   res.send(course);
 });
 
-app.get("/api/courses/:id", (req, res) => {
-  const course = courses.find(c => parseInt(req.params.id) === c.id);
-  if (!course) {
-    res.send(course);
+app.put("/api/courses/:id", (req, res) => {
+  const course = findCourse(req, res);
+  const { error } = validateCourse(req.body);
+  // Errorhandling
+  if (error) {
+    // 400 Bad Request
+    res.status(400).send(error.details[0].message);
     return;
   }
-  res.status(404).send("The course with the given ID was not found.");
+  // Update course
+  course.name = req.body.name;
+  // Return the updated course
+  res.send(course);
+});
+
+app.get("/api/courses/:id", (req, res) => {
+  const course = findCourse(req, res);
+  res.send(course);
 });
 
 // PORT
@@ -54,3 +59,21 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}...`);
 });
+
+const findCourse = (req, res) => {
+  const course = courses.find(c => parseInt(req.params.id) === c.id);
+  if (!course) {
+    res.status(404).send("The course with the given ID was not found.");
+  }
+  return course;
+};
+
+const validateCourse = course => {
+  const schema = {
+    name: Joi.string()
+      .min(3)
+      .required()
+  };
+  const result = Joi.validate(course, schema);
+  return result;
+};
