@@ -26,6 +26,21 @@ npm i -g nodemon
 
 3. How to read request parameters (/:id)
 
+```JavaScript
+app.get(`/api/posts/:year/:month`, (req, res) => {
+  res.send(req.params);
+});
+// This is for required parameters.
+// So a request like localhost:3000//api/posts/2018/1
+//Gives an object like:
+{year: "2018", month: "1"}
+// Which you can then dot . through to get your values.
+```
+
 4. How to read query parameters (/?sort=asc)
+
+```JavaScript
+// Like above, but instead of req.params, you use req.query
+```
 
 5. How to read the request body (typically for POST or PUT)
