@@ -44,3 +44,17 @@ app.get(`/api/posts/:year/:month`, (req, res) => {
 ```
 
 5. How to read the request body (typically for POST or PUT)
+
+```JavaScript
+// You need:
+app.use(express.json());
+// To enable reading body
+// Its Middleware
+
+app.post("/api/courses", (req, res) => {
+  const course = { id: courses.length + 1, name: req.body.name };
+  courses.push(course);
+  res.send(course);
+});
+
+```
