@@ -19,6 +19,22 @@ app.get(`/api/courses`, (req, res) => {
   res.send(courses);
 });
 
+app.delete("/api/courses/:id", (req, res) => {
+  // Look up the course
+  // Not exist : return 404
+  const course = courses.find(c => parseInt(req.params.id) === c.id);
+  if (!course) {
+    res.status(404).send("The course with the given ID was not found.");
+  }
+
+  // Delete
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+
+  // Return the same course
+  res.send(course);
+});
+
 app.post("/api/courses", (req, res) => {
   const { error } = validateCourse(req.body);
 
