@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 interface IGameUser {
   name: string;
   userName: string;
