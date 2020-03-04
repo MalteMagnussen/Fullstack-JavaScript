@@ -13,7 +13,7 @@ class UserFacade {
     /*Info: Import bcrypt and (npm install bcrypt) and hash before you store */
     const saltLength = 10;
     let myBoolean = false;
-    bcrypt.hash(user.password, saltLength, function(err, hash) {
+    bcrypt.hash(user.password, saltLength, (err, hash) => {
       if (err) {
         // TODO HANDLE ERROR
       } else {
@@ -45,10 +45,7 @@ class UserFacade {
     /*Use bcrypts compare method */
     // Load hash from your password DB.
     let myBoolean = false;
-    bcrypt.compare(password, this.getUser(userName).password, function(
-      err,
-      res
-    ) {
+    bcrypt.compare(password, this.getUser(userName).password, (err, res) => {
       if (err) {
         // TODO HANDLE ERROR
       } else {
