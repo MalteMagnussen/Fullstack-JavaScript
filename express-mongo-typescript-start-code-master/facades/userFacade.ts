@@ -23,10 +23,10 @@ class UserFacade {
     }
   }
   static getAllUsers(): Array<IGameUser> {
-    throw new Error("Not yet implemented");
+    return users;
   }
   static getUser(userName: string): IGameUser {
-    throw new Error("Not yet implemented");
+    return users.find(user => user.name === userName);
   }
   static checkUser(userName: string, password: string): boolean {
     /*Use bcrypts compare method */
