@@ -22,7 +22,6 @@ npm i -g nodemon
 
 ```JavaScript
 // Now instead of node app.js we write nodemon app.js and nodemon will listen to changes.
-
 ```
 
 3. How to read request parameters (/:id)
