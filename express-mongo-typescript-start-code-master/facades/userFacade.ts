@@ -7,15 +7,17 @@ interface IGameUser {
   role: string;
 }
 
-const users: Array<IGameUser> = [];
-class UserFacade {
+export const users: Array<IGameUser> = [];
+export class UserFacade {
   static addUser(user: IGameUser): boolean {
     /*Info: Import bcrypt and (npm install bcrypt) and hash before you store */
     const saltLength = 10;
     let myBoolean = false;
+    // TODO WRAP IN PROMISE
     bcrypt.hash(user.password, saltLength, (err, hash) => {
       if (err) {
         // TODO HANDLE ERROR
+        // REJECT ERROR
       } else {
         user.password = hash;
         users.push(user);
@@ -44,10 +46,13 @@ class UserFacade {
   static checkUser(userName: string, password: string): boolean {
     /*Use bcrypts compare method */
     // Load hash from your password DB.
+
     let myBoolean = false;
+    // TODO WRAP IN PROMISE
     bcrypt.compare(password, this.getUser(userName).password, (err, res) => {
       if (err) {
         // TODO HANDLE ERROR
+        // TODO REJECT ERROR
       } else {
         // res === true
         myBoolean = res;
@@ -56,5 +61,3 @@ class UserFacade {
     return myBoolean;
   }
 }
-
-exports.module.UserFacade = new UserFacade();

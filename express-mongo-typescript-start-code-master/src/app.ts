@@ -2,16 +2,22 @@ require("dotenv").config();
 import express from "express";
 import path from "path";
 const app = express();
-const UserFacade = require("../facades/userFacade.ts");
+import { users, UserFacade } from "../facades/userFacade";
 
 // Enable reading body
 // Middleware
 app.use(express.json());
 
+/**
+ * GET
+ */
 app.get("/api/dummy", (req, res) => {
   res.json({ msg: "Hello" });
 });
 
+/**
+ * POST
+ */
 app.post("/api/user", (req, res) => {
   const user = {
     name: req.body.name,
