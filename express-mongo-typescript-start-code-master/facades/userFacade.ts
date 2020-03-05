@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-
+const debug = require("debug")("game-case");
 interface IGameUser {
   name: string;
   userName: string;
@@ -16,7 +16,7 @@ export class UserFacade {
     const setPassword = async (user: IGameUser) => {
       await bcrypt.hash(user.password, saltRounds, (err, hash) => {
         if (err) {
-          // TODO HANDLE ERROR WITH DEBUG
+          debug(`Error Hashing Password: ${err}`);
         } else {
           user.password = hash;
           users.push(user);
@@ -57,11 +57,11 @@ export class UserFacade {
         this.getUser(userName).password,
         (err, res) => {
           if (err) {
-            // TODO HANDLE ERROR WITH DEBUG
+            debug(`Error Checking Password: ${err}`);
           } else if (res) {
             myBoolean = true;
           } else {
-            // RES WAS FALSE
+            debug(`Password for ${userName} was incorrect`);
           }
         }
       );

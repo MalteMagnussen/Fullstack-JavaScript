@@ -8,12 +8,18 @@ import { users, UserFacade } from "../facades/userFacade";
 // Middleware
 app.use(express.json());
 
-/**
- * GET
- */
-app.get("/api/dummy", (req, res) => {
-  res.json({ msg: "Hello" });
+// app.get("/api/dummy", (req, res) => {
+//   res.json({ msg: "Hello" });
+// });
+
+app.get("/api/users", (req, res) => {
+  res.send(UserFacade.getAllUsers());
 });
+
+// app.get("/api/user/:id", (req, res) => {
+//   const id = req.params.id;
+//   UserFacade.getUser();
+// });
 
 /**
  * POST
