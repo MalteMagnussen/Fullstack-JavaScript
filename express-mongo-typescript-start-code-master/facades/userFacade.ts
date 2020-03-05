@@ -13,7 +13,7 @@ export class UserFacade {
     /*Info: Import bcrypt and (npm install bcrypt) and hash before you store */
     const saltRounds = 10;
     let myBoolean = false;
-    async () => {
+    const setPassword = async (user: IGameUser) => {
       await bcrypt.hash(user.password, saltRounds, (err, hash) => {
         if (err) {
           // TODO HANDLE ERROR WITH DEBUG
@@ -24,6 +24,7 @@ export class UserFacade {
         }
       });
     };
+    setPassword(user);
     return myBoolean;
   }
 
@@ -49,23 +50,23 @@ export class UserFacade {
   static checkUser(userName: string, password: string): boolean {
     /*Use bcrypts compare method */
     // Load hash from your password DB.
-
     let myBoolean = false;
-
-    async () => {
+    const checkPassword = async (userName: string, password: string) => {
       await bcrypt.compare(
         password,
         this.getUser(userName).password,
         (err, res) => {
           if (err) {
             // TODO HANDLE ERROR WITH DEBUG
+          } else if (res) {
+            myBoolean = true;
           } else {
-            // res === true
-            myBoolean = res;
+            // RES WAS FALSE
           }
         }
       );
     };
+    checkPassword(userName, password);
     return myBoolean;
   }
 }
