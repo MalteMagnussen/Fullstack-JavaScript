@@ -1,6 +1,6 @@
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Response } from "express";
 
-const corsHeaders = (req: Request, res: Response, next: NextFunction) => {
+const corsHeaders = (req: any, res: Response, next: NextFunction) => {
   // Add required CORS-Headers.
   res.header("Access-Control-Allow-Origin", "*"); // All origins allowed.
   res.header(

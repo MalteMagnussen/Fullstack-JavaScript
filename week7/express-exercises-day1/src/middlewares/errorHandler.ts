@@ -1,8 +1,8 @@
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Response } from "express";
 
 const noPath = (
   err: any, // Using Error here can give issues according to teacher
-  req: Request,
+  req: any,
   res: Response,
   next: NextFunction
 ) => {
@@ -12,7 +12,7 @@ const noPath = (
 
 function allErrors(
   err: any, // Using Error here can give issues according to teacher
-  req: Request,
+  req: any,
   res: Response,
   next: NextFunction
 ) {

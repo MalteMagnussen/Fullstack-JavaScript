@@ -1,5 +1,5 @@
 require("dotenv").config();
-import Express, { NextFunction, Response, Request } from "express";
+import Express from "express";
 import path from "path";
 
 // EXPRESS
@@ -27,6 +27,7 @@ import { errorLogger } from "./middlewares/errorLogger";
 app.use(errorLogger);
 
 // CREATE ERRORHANDLER BELOW THIS COMMENT
+// ERRORHANDLER SHOULD BE LAST THING
 import { noPath, allErrors } from "./middlewares/errorHandler";
 // First 404 wrong path
 app.use(noPath);

@@ -1,9 +1,10 @@
 import express from "express";
 import userFacade from "../facades/user";
+import { NextFunction, Response } from "express";
 
 const router = express.Router();
 
-router.post("/", async function(req, res, next) {
+router.post("/", async function(req: any, res: Response, next: NextFunction) {
   try {
     let newUser = req.body;
     newUser.role = "user"; //Even if a hacker tried to "sneak" in his own role, this is what you get
@@ -14,7 +15,11 @@ router.post("/", async function(req, res, next) {
   }
 });
 
-router.get("/:userName", async function(req, res, next) {
+router.get("/:userName", async function(
+  req: any,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const user_Name = req.params.userName;
     const user = await userFacade.getUser(user_Name);
@@ -26,7 +31,7 @@ router.get("/:userName", async function(req, res, next) {
   }
 });
 
-router.get("/", async function(req, res, next) {
+router.get("/", async function(req: any, res: Response, next: NextFunction) {
   try {
     const users = await userFacade.getAllUsers();
     const usersDTO = users.map(user => {
@@ -39,7 +44,11 @@ router.get("/", async function(req, res, next) {
   }
 });
 
-router.delete("/:userName", async function(req, res, next) {
+router.delete("/:userName", async function(
+  req: any,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const user_name = req.params.userName;
     const status = await userFacade.deleteUser(user_name);
