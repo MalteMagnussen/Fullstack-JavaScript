@@ -4,6 +4,8 @@ var compare = require("tsscmp");
 import { Response, NextFunction } from "express";
 import UserFacade from "../facades/user";
 
+const debug = require("debug")("game-project");
+
 // Create server
 const authMiddleware = async function(
   req: any,
@@ -27,6 +29,7 @@ const authMiddleware = async function(
   // IF NOT LOGGED IN
   res.statusCode = 401;
   res.setHeader("WWW-Authenticate", 'Basic realm="example"');
+  debug("authMiddleware error");
   res.end("Access denied");
 };
 export default authMiddleware;
