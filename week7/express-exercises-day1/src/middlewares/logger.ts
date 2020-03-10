@@ -1,4 +1,4 @@
-import { NextFunction } from "express";
+import { NextFunction, Response, Request } from "express";
 
 const winston = require("winston"),
   expressWinston = require("express-winston");

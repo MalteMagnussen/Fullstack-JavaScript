@@ -1,5 +1,5 @@
 require("dotenv").config();
-import Express from "express";
+import Express, { NextFunction, Response, Request } from "express";
 import path from "path";
 
 // EXPRESS
@@ -13,8 +13,10 @@ const logger = require("./middlewares/logger.ts");
 app.use(logger());
 
 // CORS - DUNNO IF BEFORE OR AFTER ROUTER, I THINK BEFORE
-const CORS = require("./middlewares/my-cors");
-app.use(CORS());
+// const CORS = require("./middlewares/my-cors");
+// app.use(CORS());
+const cors = require("cors");
+app.use(cors());
 
 // I THINK THIS IS MY ROUTER?????? ENDPOINTS
 const userAPIRouter = require("./routes/userApi");
@@ -25,6 +27,9 @@ const errorLogger = require("./middlewares/errorLogger.ts");
 app.use(errorLogger);
 
 // CREATE ERRORHANDLER BELOW THIS COMMENT
+const { noPath, allErrors } = require("./middlewares/errorHandler");
+app.use(noPath());
+app.use(allErrors());
 
 // PORT
 const PORT = process.env.PORT || 3333;
