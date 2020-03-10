@@ -1,14 +1,10 @@
-import { NextFunction } from "express";
+import { NextFunction, Response, Request } from "express";
 
 const winston = require("winston"),
   expressWinston = require("express-winston");
 
 // Logger configuration
-export default function myLogger(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+const errorLogger = (req: Request, res: Response, next: NextFunction) => {
   const logConfiguration = {
     transports: [
       new winston.transports.File({
@@ -23,4 +19,6 @@ export default function myLogger(
   // Create the logger
   expressWinston.errorLogger(logConfiguration);
   next();
-}
+};
+
+export { errorLogger };

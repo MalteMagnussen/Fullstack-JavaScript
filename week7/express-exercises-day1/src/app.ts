@@ -9,8 +9,8 @@ app.use(Express.static(path.join(process.cwd(), "public")));
 app.use(Express.json());
 
 // LOGGER - THIS MAKES SENSE BEFORE ROUTER
-const logger = require("./middlewares/logger.ts");
-app.use(logger());
+import { myLogger } from "./middlewares/logger";
+app.use(myLogger);
 
 // CORS - DUNNO IF BEFORE OR AFTER ROUTER, I THINK BEFORE
 // const CORS = require("./middlewares/my-cors");
@@ -19,17 +19,19 @@ const cors = require("cors");
 app.use(cors());
 
 // I THINK THIS IS MY ROUTER?????? ENDPOINTS
-const userAPIRouter = require("./routes/userApi");
+import { userAPIRouter } from "./routes/userApi";
 app.use("/api/users", userAPIRouter);
 
 // ERRORLOGGER MAKES SENSE AFTER ROUTER
-const errorLogger = require("./middlewares/errorLogger.ts");
+import { errorLogger } from "./middlewares/errorLogger";
 app.use(errorLogger);
 
 // CREATE ERRORHANDLER BELOW THIS COMMENT
-const { noPath, allErrors } = require("./middlewares/errorHandler");
-app.use(noPath());
-app.use(allErrors());
+import { noPath, allErrors } from "./middlewares/errorHandler";
+// First 404 wrong path
+app.use(noPath);
+// Then everything else
+app.use(allErrors);
 
 // PORT
 const PORT = process.env.PORT || 3333;

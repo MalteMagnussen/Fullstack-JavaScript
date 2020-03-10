@@ -1,7 +1,7 @@
 import { NextFunction, Response, Request } from "express";
 
 const noPath = (
-  err: Error,
+  err: any, // Using Error here can give issues according to teacher
   req: Request,
   res: Response,
   next: NextFunction
@@ -10,10 +10,8 @@ const noPath = (
   res.status(404).send("Path doesnt exist.!");
 };
 
-module.exports.noPath = noPath;
-
 function allErrors(
-  err: Error,
+  err: any, // Using Error here can give issues according to teacher
   req: Request,
   res: Response,
   next: NextFunction
@@ -22,4 +20,4 @@ function allErrors(
   res.render("error", { error: err });
 }
 
-module.exports.allErrors = allErrors;
+export { allErrors, noPath };

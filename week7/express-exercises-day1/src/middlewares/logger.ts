@@ -4,11 +4,7 @@ const winston = require("winston"),
   expressWinston = require("express-winston");
 
 // Logger configuration
-export default function myLogger(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+const myLogger = (req: Request, res: Response, next: NextFunction) => {
   const logConfiguration = {
     transports: [
       new winston.transports.File({
@@ -28,4 +24,6 @@ export default function myLogger(
   // Create the logger
   expressWinston.logger(logConfiguration);
   next();
-}
+};
+
+export { myLogger };
