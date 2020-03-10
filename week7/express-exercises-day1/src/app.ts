@@ -33,6 +33,7 @@ app.use(function(err: any, req: any, res: any, next: any) {
   if (err.name === "ApiError") {
     res.status(err.errorCode).json(err);
   }
+  next(err);
 });
 // 404 wrong path
 app.use(noPath);

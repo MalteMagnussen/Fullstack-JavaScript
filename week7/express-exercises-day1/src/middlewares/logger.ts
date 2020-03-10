@@ -8,7 +8,7 @@ const myLogger = (req: any, res: Response, next: NextFunction) => {
   const logConfiguration = {
     transports: [
       new winston.transports.File({
-        filename: "../logs/all.log"
+        filename: "./logs/all.log"
       })
     ],
     format: winston.format.combine(

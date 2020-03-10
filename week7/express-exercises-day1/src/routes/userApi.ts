@@ -17,15 +17,21 @@ router.post("/", async function(req: any, res: Response, next: NextFunction) {
   }
 });
 
+// EVERYTHING BELOW REQUIRES USER TO BE LOGGED IN
 router.use(authMiddleware);
 
-router.get("/:userName", async function(
+router.get("/user/me", async function(
   req: any,
   res: Response,
   next: NextFunction
 ) {
   try {
-    const user_Name = req.params.userName;
+    const user_Name = req.userName;
+    // const role = req.role;
+    // if (role != "admin") {
+    //   throw new ApiError("Not Authorized.", 401);
+    // }
+    // const user_Name = req.params.userName;
     const user = await userFacade.getUser(user_Name);
     const { name, userName } = user;
     const userDTO = { name, userName };
