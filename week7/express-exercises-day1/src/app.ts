@@ -14,11 +14,16 @@ const logger = require("./middlewares/firstLogger.ts");
 
 app.use(logger());
 
+const CORS = require("./middlewares/my-cors");
+
+app.use(CORS());
+
 app.get("/api/dummy", (req, res) => {
   res.json({ msg: "Hello" });
 });
 
 const PORT = process.env.PORT || 3333;
-const server = app.listen(PORT);
-console.log(`Server started, listening on port: ${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`Server started, listening on port: ${PORT}`);
+});
 module.exports.server = server;
