@@ -26,8 +26,6 @@ export default function myLogger(
     // ignoreRoute: function (req, res) { return false; } // optional: allows to skip some log messages based on request and/or response
   };
   // Create the logger
-  const logger = expressWinston.logger(logConfiguration);
-  //   // Log a message
-  //   logger.info(JSON.stringify(req));
+  expressWinston.logger(logConfiguration);
   next();
 }

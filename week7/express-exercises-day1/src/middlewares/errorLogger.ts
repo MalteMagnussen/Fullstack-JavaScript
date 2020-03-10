@@ -21,8 +21,6 @@ export default function myLogger(
     )
   };
   // Create the logger
-  const logger = expressWinston.errorLogger(logConfiguration);
-  //   // Log a message
-  //   logger.info(JSON.stringify(req));
+  expressWinston.errorLogger(logConfiguration);
   next();
 }
