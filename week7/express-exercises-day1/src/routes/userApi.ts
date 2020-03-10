@@ -1,6 +1,8 @@
 import express from "express";
 import userFacade from "../facades/user";
+import authMiddleware from "../middlewares/basic-auth";
 import { NextFunction, Response } from "express";
+import { ApiError } from "../errors/apiError";
 
 const router = express.Router();
 
@@ -14,6 +16,8 @@ router.post("/", async function(req: any, res: Response, next: NextFunction) {
     next(err);
   }
 });
+
+router.use(authMiddleware);
 
 router.get("/:userName", async function(
   req: any,

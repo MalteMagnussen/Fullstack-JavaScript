@@ -29,7 +29,12 @@ app.use(errorLogger);
 // CREATE ERRORHANDLER BELOW THIS COMMENT
 // ERRORHANDLER SHOULD BE LAST THING
 import { noPath, allErrors } from "./middlewares/errorHandler";
-// First 404 wrong path
+app.use(function(err: any, req: any, res: any, next: any) {
+  if (err.name === "ApiError") {
+    res.status(err.errorCode).json(err);
+  }
+});
+// 404 wrong path
 app.use(noPath);
 // Then everything else
 app.use(allErrors);
