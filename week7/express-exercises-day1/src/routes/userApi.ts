@@ -41,6 +41,27 @@ router.get("/user/me", async function(
   }
 });
 
+router.get("/:userName", async function(
+  req: any,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    // const user_Name = req.userName;
+    const role = req.role;
+    if (role != "admin") {
+      throw new ApiError("Not Authorized.", 401);
+    }
+    const user_Name = req.params.userName;
+    const user = await userFacade.getUser(user_Name);
+    const { name, userName } = user;
+    const userDTO = { name, userName };
+    res.json(userDTO);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/", async function(req: any, res: Response, next: NextFunction) {
   try {
     const users = await userFacade.getAllUsers();
@@ -54,6 +75,9 @@ router.get("/", async function(req: any, res: Response, next: NextFunction) {
   }
 });
 
+/**
+ * TODO: Fix so only admin can
+ */
 router.delete("/:userName", async function(
   req: any,
   res: Response,
