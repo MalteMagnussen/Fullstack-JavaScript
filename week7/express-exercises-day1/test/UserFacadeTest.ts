@@ -18,20 +18,27 @@ fs.removeSync(..)	Deletes a folder and its content
  *
  */
 
-describe("Test getFiles.ts", () => {
-  before(function() {
+describe("Test UserFacade", () => {
+  before(async () => {
     // runs once before the first test in this block
+    await UserFacade.addUser({
+      name: "Test",
+      userName: "test@tradewind.dk",
+      password: "1234",
+      role: "user"
+    });
   });
 
-  after(function() {
+  after(async () => {
     // runs once after the last test in this block
+    await UserFacade.deleteUser("Test");
   });
 
-  beforeEach(function() {
+  beforeEach(async () => {
     // runs before each test in this block
   });
 
-  afterEach(function() {
+  afterEach(async () => {
     // runs after each test in this block
   });
 
@@ -39,29 +46,52 @@ describe("Test getFiles.ts", () => {
 
   it("Test of Get All Users.", async () => {
     const users = await UserFacade.getAllUsers();
-    debug(users); // Why doesnt this work?
-    // console.log(JSON.stringify(users));
-    expect(JSON.stringify(users)).to.equal(
-      JSON.stringify([
-        {
-          name: "Peter Pan",
-          userName: "pp@b.dk",
-          password: "secret",
-          role: "user"
-        },
-        {
-          name: "Donald Duck",
-          userName: "dd@b.dk",
-          password: "secret",
-          role: "user"
-        },
-        {
-          name: "admin",
-          userName: "admin@a.dk",
-          password: "secret",
-          role: "admin"
-        }
-      ])
-    );
+    // debug(users); // Why doesnt this work?
+    // // console.log(JSON.stringify(users));
+    // expect(JSON.stringify(users)).to.equal(
+    //   JSON.stringify([
+    //     {
+    //       name: "Peter Pan",
+    //       userName: "pp@b.dk",
+    //       password: "secret",
+    //       role: "user"
+    //     },
+    //     {
+    //       name: "Donald Duck",
+    //       userName: "dd@b.dk",
+    //       password: "secret",
+    //       role: "user"
+    //     },
+    //     {
+    //       name: "admin",
+    //       userName: "admin@a.dk",
+    //       password: "secret",
+    //       role: "admin"
+    //     }
+    //   ])
+    // );
+    expect(users.length).to.be.equal(4);
+  });
+
+  it("Test of Add User", async () => {
+    const answer = await UserFacade.addUser({
+      name: "asdasdasd",
+      userName: "23asdfsdfasdf",
+      password: "1adsfhsdfhdsfh",
+      role: "user"
+    });
+    expect(answer).to.be.equal("User was added");
+  });
+
+  it("Test of Get User", async () => {
+    const user = await UserFacade.getUser("test@tradewind.dk");
+    expect(user.name).to.be.equal("Test");
+    expect(user.role).to.be.equal("user");
+    expect(user.userName).to.be.equal("test@tradewind.dk");
+  });
+
+  it("Test of checkUser - Positive Case", async () => {
+    const answer = await UserFacade.checkUser("test@tradewind.dk", "1234");
+    expect(answer).to.be.equal(true);
   });
 });
