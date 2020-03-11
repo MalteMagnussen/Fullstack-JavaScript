@@ -46,30 +46,6 @@ describe("Test UserFacade", () => {
 
   it("Test of Get All Users.", async () => {
     const users = await UserFacade.getAllUsers();
-    // debug(users); // Why doesnt this work?
-    // // console.log(JSON.stringify(users));
-    // expect(JSON.stringify(users)).to.equal(
-    //   JSON.stringify([
-    //     {
-    //       name: "Peter Pan",
-    //       userName: "pp@b.dk",
-    //       password: "secret",
-    //       role: "user"
-    //     },
-    //     {
-    //       name: "Donald Duck",
-    //       userName: "dd@b.dk",
-    //       password: "secret",
-    //       role: "user"
-    //     },
-    //     {
-    //       name: "admin",
-    //       userName: "admin@a.dk",
-    //       password: "secret",
-    //       role: "admin"
-    //     }
-    //   ])
-    // );
     expect(users.length).to.be.equal(4);
   });
 
