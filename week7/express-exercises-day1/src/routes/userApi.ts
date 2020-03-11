@@ -18,7 +18,8 @@ router.post("/", async function(req: any, res: Response, next: NextFunction) {
 });
 
 // EVERYTHING BELOW REQUIRES USER TO BE LOGGED IN
-router.use(authMiddleware);
+// BASIC AUTH DOESNT WORK - DISABLED FOR NOW
+// router.use(authMiddleware);
 
 router.get("/user/me", async function(
   req: any,
