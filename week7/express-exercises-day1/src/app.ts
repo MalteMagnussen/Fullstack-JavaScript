@@ -9,8 +9,10 @@ app.use(Express.static(path.join(process.cwd(), "public")));
 app.use(Express.json());
 
 // LOGGER - THIS MAKES SENSE BEFORE ROUTER
-import { myLogger } from "./middlewares/logger";
-app.use(myLogger);
+// import { myLogger } from "./middlewares/logger";
+// app.use(myLogger);
+import { requestLogger } from "./middlewares/larsLogger";
+app.use(requestLogger);
 
 // CORS - DUNNO IF BEFORE OR AFTER ROUTER, I THINK BEFORE
 // const CORS = require("./middlewares/my-cors");
@@ -27,7 +29,9 @@ app.get("/api/dummy", (req, res) => {
 });
 
 // ERRORLOGGER MAKES SENSE AFTER ROUTER
-import { errorLogger } from "./middlewares/errorLogger";
+// import { errorLogger } from "./middlewares/errorLogger";
+// app.use(errorLogger);
+import { errorLogger } from "./middlewares/larsLogger";
 app.use(errorLogger);
 
 // CREATE ERRORHANDLER BELOW THIS COMMENT
