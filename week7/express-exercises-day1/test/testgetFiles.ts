@@ -1,15 +1,27 @@
 const expect = require("chai").expect;
 import { getFileNames } from "../src/utils/getFiles";
+const fs = require("fs-extra");
 
 const debug = require("debug")("game-project");
+
+/**
+fs.mkdirSync(..) 	Create a Directory
+fs.writeFileSync(..)	Creates a file
+fs.removeSync(..)	Deletes a folder and its content
+ */
 
 describe("Test getFiles.ts", () => {
   before(function() {
     // runs once before the first test in this block
+    fs.mkdirSync("testFiles");
+    fs.writeFileSync("testFiles/1.txt");
+    fs.writeFileSync("testFiles/2.txt");
+    fs.writeFileSync("testFiles/3.txt");
   });
 
   after(function() {
     // runs once after the last test in this block
+    fs.removeSync("testFiles");
   });
 
   beforeEach(function() {
