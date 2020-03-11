@@ -26,12 +26,16 @@ describe("Color Code Converter API", () => {
     const url = `${hostURL}hexToRgb?hex=00ff00`;
 
     it("returns status 200", () => {
-      expect(response.statusCode).to.equal(200);
-      done();
+      request(url, (err, res, body) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
     });
     it("returns the color in RGB", () => {
-      expect(body).to.equal("[0,255,0]");
-      done();
+      request(url, (err, res, body) => {
+        expect(body).to.equal("[0,255,0]");
+        done();
+      });
     });
   });
 });

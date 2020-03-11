@@ -32,17 +32,18 @@ app.use(errorLogger);
 
 // CREATE ERRORHANDLER BELOW THIS COMMENT
 // ERRORHANDLER SHOULD BE LAST THING
+// I have no idea how either logging or error handling works
 import { allErrors } from "./middlewares/errorHandler"; //noPath,
-app.use(function(err: any, req: any, res: any, next: any) {
+app.use(function(err: any, req: any, res: any, next: Function) {
   if (err.name === "ApiError") {
-    res.status(err.errorCode).json(err);
+    res.status(400).json({ code: err.errorCode, message: err.message });
   }
   next(err);
 });
 // // 404 wrong path
 // app.use(noPath);
 // Then everything else
-app.use(allErrors);
+// app.use(allErrors);
 
 // PORT
 const PORT = process.env.PORT || 3333;
