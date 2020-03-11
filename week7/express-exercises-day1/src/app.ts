@@ -22,6 +22,10 @@ app.use(cors());
 import { userAPIRouter } from "./routes/userApi";
 app.use("/api/users", userAPIRouter);
 
+app.get("/api/dummy", (req, res) => {
+  res.json({ msg: "Hello" });
+});
+
 // ERRORLOGGER MAKES SENSE AFTER ROUTER
 import { errorLogger } from "./middlewares/errorLogger";
 app.use(errorLogger);

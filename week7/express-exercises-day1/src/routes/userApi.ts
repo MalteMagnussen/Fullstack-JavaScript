@@ -27,11 +27,6 @@ router.get("/user/me", async function(
 ) {
   try {
     const user_Name = req.userName;
-    // const role = req.role;
-    // if (role != "admin") {
-    //   throw new ApiError("Not Authorized.", 401);
-    // }
-    // const user_Name = req.params.userName;
     const user = await userFacade.getUser(user_Name);
     const { name, userName } = user;
     const userDTO = { name, userName };
