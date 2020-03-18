@@ -92,18 +92,9 @@ async function test() {
   const all = await UserFacade.getAllUsers();
   console.log(all);
 
-  const projection = { projection: { _id: 0, role: 0, password: 0 } };
+  const projection = { _id: 0, role: 0, password: 0 };
   const kim = await UserFacade.getUser("kim@b.dk", projection);
   console.log(kim);
-
-  try {
-    let status = await UserFacade.deleteUser("kim@b.dk");
-    console.log(status);
-    status = await UserFacade.deleteUser("xxxx@b.dk");
-    console.log("Should not get here");
-  } catch (err) {
-    console.log(err.message);
-  }
 
   try {
     const passwordStatus = await UserFacade.checkUser("kim@b.dk", "secret");
@@ -123,6 +114,16 @@ async function test() {
   } catch (err) {
     console.log("hould get here with failded 2", err);
   }
+
+  try {
+    let status = await UserFacade.deleteUser("kim@b.dk");
+    console.log(status);
+    status = await UserFacade.deleteUser("xxxx@b.dk");
+    console.log("Should not get here");
+  } catch (err) {
+    console.log(err.message);
+  }
+
   client.close();
 }
 test();
