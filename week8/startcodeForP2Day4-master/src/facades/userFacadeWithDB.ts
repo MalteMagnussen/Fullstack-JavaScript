@@ -36,11 +36,18 @@ export default class UserFacade {
   }
   //static async getAllUsers(): Promise<Array<IGameUser>> {
   static async getAllUsers(): Promise<Array<any>> {
-    throw new Error("Not Implemented");
+    const all = userCollection.find(
+      {},
+      { projection: { name: 1, userName: 1, _id: 0 } }
+    );
+    return all.toArray();
+    // throw new Error("Not Implemented");
   }
 
   static async getUser(userName: string, proj?: object): Promise<any> {
-    throw new Error("Not Implemented");
+    const user = userCollection.findOne({ userName }, {});
+    return user;
+    // throw new Error("Not Implemented");
   }
 
   static async checkUser(userName: string, password: string): Promise<boolean> {
@@ -73,8 +80,8 @@ async function test() {
     role: "user"
   });
 
-  // const all = await UserFacade.getAllUsers();
-  // console.log(all)
+  const all = await UserFacade.getAllUsers();
+  console.log(all);
 
   // const projection = {projection:{_id:0, role:0,password:0}}
   // const kim = await UserFacade.getUser("kim@b.dk",projection)
@@ -107,5 +114,6 @@ async function test() {
   // } catch (err) {
   //     console.log("hould get here with failded 2", err)
   // }
+  client.close();
 }
 test();

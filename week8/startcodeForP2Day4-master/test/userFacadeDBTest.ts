@@ -5,6 +5,7 @@ import UserFacade from "../src/facades/userFacadeWithDB";
 import { expect } from "chai";
 import { bryptAsync } from "../src/utils/bcrypt-async-helper";
 import { ApiError } from "../src/errors/apiError";
+import "mocha";
 
 let userCollection: mongo.Collection | null;
 let client: mongo.MongoClient;
