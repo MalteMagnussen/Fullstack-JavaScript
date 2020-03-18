@@ -81,10 +81,10 @@ describe("Verify the UserFacade", () => {
     }
   });
 
-  xit("Should remove the user Peter", async () => {
+  it("Should remove the user Peter", async () => {
     try {
       const status = await UserFacade.deleteUser("pp@b.dk");
-      expect(status).to.be.equal("User was reoved");
+      expect(status).to.be.equal("User was deleted");
       if (userCollection === null) {
         throw new Error("Collection was null");
       }
