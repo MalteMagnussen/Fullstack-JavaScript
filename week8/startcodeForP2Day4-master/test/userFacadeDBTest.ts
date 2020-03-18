@@ -36,7 +36,10 @@ describe("Verify the UserFacade", () => {
     if (userCollection === null) {
       throw new Error("userCollection not set");
     }
+
+    // Clear out database
     await userCollection.deleteMany({});
+
     const secretHashed = await bryptAsync("secret");
     await userCollection.insertMany([
       {

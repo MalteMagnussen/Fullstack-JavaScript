@@ -106,13 +106,13 @@ async function test() {
     const passwordStatus = await UserFacade.checkUser("kim@b.dk", "xxxx");
     console.log("Should not get here ", passwordStatus);
   } catch (err) {
-    console.log("Should get here with failded 2", err);
+    console.log("Should get here with failed: ", err);
   }
   try {
     const passwordStatus = await UserFacade.checkUser("xxxx@b.dk", "secret");
     console.log("Should not get here");
   } catch (err) {
-    console.log("hould get here with failded 2", err);
+    console.log("Should get here with failed: ", err);
   }
 
   try {

@@ -29,7 +29,10 @@ describe("Create/Update Comments", () => {
     //Observe, no use of facade, but operates directly on connection
     const db = client.db(process.env.DB_NAME);
     const usersCollection = db.collection("users");
+
+    // Clear out database:
     await usersCollection.deleteMany({});
+
     const secretHashed = await bryptAsync("secret");
     const status = await usersCollection.insertMany([
       {
