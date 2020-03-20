@@ -61,7 +61,36 @@ describe("Testing the User API", () => {
     expect(result.msg).to.be.equal("Hello");
   });
 
-  xit("Should get three users", async () => {});
+  it("Should get three users", async () => {
+    const config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    };
+    const result = await fetch(`${URL}/api/users`, config).then(r => r.json());
+    console.log("RESULT:");
+    console.log(result);
+    const expected = [
+      {
+        name: "Peter Pan",
+        userName: "pp@b.dk"
+      },
+      {
+        name: "Donald Duck",
+        userName: "dd@b.dk"
+      },
+      {
+        name: "admin",
+        userName: "admin@a.dk"
+      }
+    ];
+    console.log("EXPECTED:");
+    console.log(expected);
+    expect(result).to.be.equal(expected);
+  });
+
   it("Should Add the user Jan", async () => {
     const newUser = {
       name: "Jan Olsen",
