@@ -25,7 +25,7 @@ describe("Verify the UserFacade", () => {
     }
     userCollection = db.collection("users");
     if (userCollection === null) {
-      throw new Error("user collection not");
+      throw new Error("userCollection null in before");
     }
   });
   after(async () => {
@@ -33,7 +33,7 @@ describe("Verify the UserFacade", () => {
   });
   beforeEach(async () => {
     if (userCollection === null) {
-      throw new Error("userCollection not set");
+      throw new Error("userCollection null in beforeEach");
     }
     await userCollection.deleteMany({});
     const secretHashed = await bryptAsync("secret");
