@@ -80,10 +80,10 @@ describe("Verify the UserFacade", () => {
     }
   });
 
-  xit("Should remove the user Peter", async () => {
+  it("Should remove the user Peter", async () => {
     try {
       const status = await UserFacade.deleteUser("pp@b.dk");
-      expect(status).to.be.equal("User was reoved");
+      expect(status).to.be.equal("User was deleted");
       if (userCollection === null) {
         throw new Error("Collection was null");
       }
@@ -95,9 +95,24 @@ describe("Verify the UserFacade", () => {
     }
   });
 
-  xit("Should get three users", async () => {});
+  it("Should get three users", async () => {
+    try {
+      const users = await UserFacade.getAllUsers();
+      expect(users.length).to.be.equal(3);
+    } catch (err) {
+      throw err;
+    }
+  });
 
-  xit("Should find Donald Duck", async () => {});
+  it("Should find Donald Duck", async () => {
+    try {
+      const donald = await UserFacade.getUser("dd@b.dk");
+      expect(donald.name).to.be.equal("Donald Duck");
+    } catch (err) {
+      throw err;
+    }
+  });
+
   xit("Should not find xxx.@.b.dk", async () => {
     try {
       const xxx = await UserFacade.getUser("xxx.@.b.dk");
