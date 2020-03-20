@@ -1,5 +1,6 @@
 import path from "path";
 require('dotenv').config({ path: path.join(process.cwd(), '.env') })
+//console.log("----> ",path.join(process.cwd(), '.env'))
 import mongo from "mongodb";
 const MongoClient = mongo.MongoClient;
 
