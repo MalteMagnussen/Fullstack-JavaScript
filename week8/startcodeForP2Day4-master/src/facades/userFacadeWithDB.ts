@@ -37,7 +37,9 @@ export default class UserFacade {
   }
   //static async getAllUsers(): Promise<Array<IGameUser>> {
   static async getAllUsers(): Promise<Array<any>> {
-    return await userCollection.find({}).toArray();
+    return await userCollection
+      .find({}, { projection: { name: 1, userName: 1, _id: 0 } })
+      .toArray();
   }
 
   static async getUser(userName: string, proj?: object): Promise<any> {
@@ -108,5 +110,6 @@ async function test() {
   // } catch (err) {
   //     console.log("hould get here with failded 2", err)
   // }
+  client.close();
 }
 test();
