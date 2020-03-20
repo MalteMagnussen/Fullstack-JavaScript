@@ -32,8 +32,12 @@ export default class UserFacade {
     return "User was added";
   }
   static async deleteUser(userName: string): Promise<string> {
-    await userCollection.findOneAndDelete({ userName });
-    return "User was deleted";
+    const status = await userCollection.findOneAndDelete({ userName });
+    if (status.ok === 1) {
+      return "User was deleted";
+    } else {
+      throw new ApiError("Could not delete user", 400);
+    }
   }
   //static async getAllUsers(): Promise<Array<IGameUser>> {
   static async getAllUsers(): Promise<Array<any>> {
@@ -50,7 +54,7 @@ export default class UserFacade {
       }
     );
     if (!user) {
-      throw new ApiError("User not found", 404);
+      throw new ApiError("User not found", 400);
     } else {
       return user;
     }
@@ -89,7 +93,7 @@ async function test() {
   // const all = await UserFacade.getAllUsers();
   // console.log(all)
 
-  // const projection = {projection:{_id:0, role:0,password:0}}
+  // const projection = {_id:0, role:0,password:0}
   // const kim = await UserFacade.getUser("kim@b.dk",projection)
   // console.log(kim)
 
