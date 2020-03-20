@@ -43,7 +43,17 @@ export default class UserFacade {
   }
 
   static async getUser(userName: string, proj?: object): Promise<any> {
-    throw new Error("Not Implemented");
+    const user = await userCollection.findOne(
+      { userName },
+      {
+        projection: proj
+      }
+    );
+    if (!user) {
+      throw new ApiError("User not found", 404);
+    } else {
+      return user;
+    }
   }
 
   static async checkUser(userName: string, password: string): Promise<boolean> {
