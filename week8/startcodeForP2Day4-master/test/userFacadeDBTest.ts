@@ -113,7 +113,7 @@ describe("Verify the UserFacade", () => {
     }
   });
 
-  xit("Should not find xxx.@.b.dk", async () => {
+  it("Should not find xxx.@.b.dk", async () => {
     try {
       const xxx = await UserFacade.getUser("xxx.@.b.dk");
       throw new Error("Should not get here");
@@ -123,15 +123,23 @@ describe("Verify the UserFacade", () => {
     } finally {
     }
   });
-  xit("Should correctly validate Peter Pan's credential,s", async () => {});
-  xit("Should NOT correctly validate Peter Pan's check", async () => {
+
+  it("Should correctly validate Peter Pan's credential,s", async () => {
+    try {
+      const passwordStatus = await UserFacade.checkUser("pp@b.dk", "xxxx");
+      expect(passwordStatus).to.be.true;
+    } catch (err) {}
+  });
+
+  it("Should NOT correctly validate Peter Pan's check", async () => {
     try {
       const passwordStatus = await UserFacade.checkUser("pp@b.dk", "xxxx");
     } catch (err) {
       expect(err).to.be.false;
     }
   });
-  xit("Should NOT correctly validate non-existing users check", async () => {
+
+  it("Should NOT correctly validate non-existing users check", async () => {
     try {
       const passwordStatus = await UserFacade.checkUser("pxxxx@b.dk", "secret");
     } catch (err) {
