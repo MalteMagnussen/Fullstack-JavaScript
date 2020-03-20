@@ -32,7 +32,7 @@ export default class UserFacade {
     return "User was added";
   }
   static async deleteUser(userName: string): Promise<string> {
-    userCollection.findOneAndDelete({ userName: userName });
+    userCollection.findOneAndDelete({ userName });
     return "User was deleted";
   }
   //static async getAllUsers(): Promise<Array<IGameUser>> {
