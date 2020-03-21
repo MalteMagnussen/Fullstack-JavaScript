@@ -38,7 +38,7 @@ router.get("/:userName", async function(req: any, res, next) {
       }
     }
     const user_Name = req.params.userName;
-    console.log("IN API: ", user_Name);
+    // console.log("IN API: ", user_Name);
     const user = await userFacade.getUser(user_Name);
     const { name, userName } = user;
     const userDTO = { name, userName };

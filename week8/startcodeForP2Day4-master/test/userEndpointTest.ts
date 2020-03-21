@@ -6,6 +6,7 @@ import fetch from "node-fetch";
 import mongo, { MongoClient } from "mongodb";
 import { bryptAsync } from "../src/utils/bcrypt-async-helper";
 import setup from "../src/config/setupDB";
+const debug = require("debug")("game-project");
 
 let server: Server;
 const TEST_PORT = "7777";
@@ -70,8 +71,8 @@ describe("Testing the User API", () => {
       }
     };
     const result = await fetch(`${URL}/api/users`, config).then(r => r.json());
-    // console.log("RESULT:");
-    // console.log(result);
+    // debug("RESULT:");
+    // debug(result);
     const expected = [
       {
         name: "Peter Pan",
@@ -86,8 +87,8 @@ describe("Testing the User API", () => {
         userName: "admin@a.dk"
       }
     ];
-    // console.log("EXPECTED:");
-    // console.log(expected);
+    // debug("EXPECTED:");
+    // debug(expected);
     expect(result).to.be.deep.equal(expected);
   });
 
@@ -123,10 +124,9 @@ describe("Testing the User API", () => {
       }
     };
     // Act
-    const result = await fetch(
-      `${URL}/api/users/${userName})`,
-      config
-    ).then(r => r.json());
+    const result = await fetch(`${URL}/api/users/${userName}`, config).then(r =>
+      r.json()
+    );
     // Assert
     expect(result).to.be.deep.equal(expected);
   });
