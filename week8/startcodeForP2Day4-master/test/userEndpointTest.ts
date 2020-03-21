@@ -131,7 +131,57 @@ describe("Testing the User API", () => {
     expect(result).to.be.deep.equal(expected);
   });
 
-  xit("Should not find the user xxx@b.dk", async () => {});
+  it("Should not find the user xxx@b.dk", async () => {
+    // Arrange
+    const expected = { code: 400, message: "User not found" };
+    const userName = "xxx@b.dk";
+    const config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    };
+    // Act
+    const result = await fetch(`${URL}/api/users/${userName}`, config).then(r =>
+      r.json()
+    );
+    // Assert
+    expect(result).to.be.deep.equal(expected);
+  });
 
-  xit("Should Remove the user Donald Duck", async () => {});
+  it("Should Remove the user Donald Duck", async () => {
+    // Arrange
+    const expected = { status: "User was deleted" };
+    let userName = "dd@b.dk";
+    let config = {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    };
+    // Act
+    let result = await fetch(`${URL}/api/users/${userName}`, config).then(r =>
+      r.json()
+    );
+    // Assert
+    expect(result).to.be.deep.equal(expected);
+
+    // Arrange
+    const expectedTwo = { code: 400, message: "User not found" };
+    config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    };
+    // Act
+    result = await fetch(`${URL}/api/users/${userName}`, config).then(r =>
+      r.json()
+    );
+    // Assert
+    expect(result).to.be.deep.equal(expectedTwo);
+  });
 });
