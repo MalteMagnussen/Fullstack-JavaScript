@@ -110,7 +110,26 @@ describe("Testing the User API", () => {
     expect(result.status).to.be.equal("User was added");
   });
 
-  xit("Should find the user Donald Duck", async () => {});
+  it("Should find the user Donald Duck", async () => {
+    // Arrange
+    const userName = "dd@b.dk";
+    const name = "Donald Duck";
+    const expected = { name, userName };
+    const config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    };
+    // Act
+    const result = await fetch(
+      `${URL}/api/users/${userName})`,
+      config
+    ).then(r => r.json());
+    // Assert
+    expect(result).to.be.deep.equal(expected);
+  });
 
   xit("Should not find the user xxx@b.dk", async () => {});
 
