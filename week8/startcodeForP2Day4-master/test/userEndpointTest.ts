@@ -70,8 +70,8 @@ describe("Testing the User API", () => {
       }
     };
     const result = await fetch(`${URL}/api/users`, config).then(r => r.json());
-    console.log("RESULT:");
-    console.log(result);
+    // console.log("RESULT:");
+    // console.log(result);
     const expected = [
       {
         name: "Peter Pan",
@@ -86,9 +86,9 @@ describe("Testing the User API", () => {
         userName: "admin@a.dk"
       }
     ];
-    console.log("EXPECTED:");
-    console.log(expected);
-    expect(result).to.be.equal(expected);
+    // console.log("EXPECTED:");
+    // console.log(expected);
+    expect(result).to.be.deep.equal(expected);
   });
 
   it("Should Add the user Jan", async () => {
