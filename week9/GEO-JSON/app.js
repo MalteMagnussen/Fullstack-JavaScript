@@ -12,28 +12,22 @@ app.get("/geoapi/isuserinarea/:lon/:lat", (req, res) => {
 
   const userInArea = gju.pointInPolygon(
     { type: "Point", coordinates: [lon, lat] },
-    {
-      type: "Polygon",
-      coordinates: [
-        [
-          [0, 0],
-          [6, 0],
-          [6, 6],
-          [0, 6]
-        ]
-      ]
-    }
+    gameArea
   );
 
   if (userInArea) {
-    return {
+    // TEST: http://localhost:3000/geoapi/isuserinarea/12.561578750610352/55.779758908094266
+    res.send({
       status: true,
       msg: "Point was inside the tested polygon"
-    };
+    });
   } else {
-    return {
+    // TEST: http://localhost:3000/geoapi/isuserinarea/10/10
+    res.send({
       status: false,
       msg: "Point was NOT inside tested polygon"
-    };
+    });
   }
 });
+
+// app.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad");
