@@ -7,6 +7,9 @@ app.get("/", (req, res) => res.send("Geo Demo!"));
 app.listen(3000, () => console.log("Example app listening on port 3000!"));
 // const { gameArea, players } = require("./gameData")
 
+/**
+ * Find out if point is inside game area
+ */
 app.get("/geoapi/isuserinarea/:lon/:lat", (req, res) => {
   const lon = req.params["lon"];
   const lat = req.params["lat"];
@@ -31,6 +34,9 @@ app.get("/geoapi/isuserinarea/:lon/:lat", (req, res) => {
   }
 });
 
+/**
+ * Find all players near point. "Near" is defined by the radius.
+ */
 app.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad", (req, res) => {
   const lon = req.params.lon;
   const lat = req.params.lat;
@@ -57,6 +63,9 @@ app.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad", (req, res) => {
   res.send(result);
 });
 
+/**
+ * Find distance between point and a player
+ */
 app.get("/geoapi/distanceToUser/:lon/:lat/:username", (req, res) => {
   const point = {
     type: "Point",
