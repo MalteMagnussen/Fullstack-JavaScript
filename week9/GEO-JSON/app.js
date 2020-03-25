@@ -43,8 +43,8 @@ app.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad", (req, res) => {
   };
 
   //Brug lambda :))
-  const result = players.filter(e =>
-    gju.geometryWithinRadius(e.geometry, center, rad)
+  const result = players.filter(player =>
+    gju.geometryWithinRadius(player.geometry, center, rad)
   );
 
   //In normal for-loop; i is just an index
