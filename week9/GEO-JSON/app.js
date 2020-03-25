@@ -31,4 +31,28 @@ app.get("/geoapi/isuserinarea/:lon/:lat", (req, res) => {
   }
 });
 
-// app.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad");
+app.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad", (req, res) => {
+  const lon = req.params.lon;
+  const lat = req.params.lat;
+  const rad = req.params.rad;
+
+  //Creating proper geo-json format
+  let center = {
+    type: "Point",
+    coordinates: [lon, lat]
+  };
+
+  //Brug lambda :))
+  const result = players.filter(e =>
+    gju.geometryWithinRadius(e.geometry, center, rad)
+  );
+
+  //In normal for-loop; i is just an index
+  //   for (let i in players) {
+  //     if (gju.geometryWithinRadius(players[i].geometry, center, rad)) {
+  //       result.push(players[i]);
+  //     }
+  //   }
+
+  res.send(result);
+});
