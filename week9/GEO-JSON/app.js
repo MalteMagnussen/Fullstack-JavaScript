@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+// import gju from "geojson-utils";
 const gju = require("geojson-utils");
 const { gameArea, players } = require("./gameData");
 app.get("/", (req, res) => res.send("Geo Demo!"));
