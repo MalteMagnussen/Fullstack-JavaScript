@@ -56,3 +56,26 @@ app.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad", (req, res) => {
 
   res.send(result);
 });
+
+app.get("/geoapi/distanceToUser/:lon/:lat/:username", (req, res) => {
+  const point = {
+    type: "Point",
+    coordinates: [req.params.lon, req.params.lat]
+  };
+  const username = req.params.username;
+  const player = players.find(player => player.properties.name === username);
+  if (player) {
+    const distance = gju.pointDistance(point, {
+      type: "Point",
+      coordinates: player.geometry.coordinates
+    });
+    res.send({
+      distance,
+      to: username
+    });
+  } else {
+    res.status(404).send({
+      msg: "User not found"
+    });
+  }
+});
