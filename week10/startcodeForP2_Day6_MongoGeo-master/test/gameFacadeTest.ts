@@ -1,5 +1,6 @@
 import * as mongo from "mongodb";
 const MongoClient = mongo.MongoClient;
+import "mocha";
 import setup from "../src/config/setupDB";
 //import UserFacade from '../src/facades/userFacadeWithDB';
 import GameFacade from "../src/facades/gameFacade";
