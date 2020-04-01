@@ -80,9 +80,21 @@ describe("Verify /gameapi/getPostIfReached", () => {
     const positions = [
       positionCreator(12.48, 55.77, team1.userName, team1.name, true),
       //TODO --> Change latitude below, to a value INSIDE the radius given by DISTANCE_TO_SEARC, and the position of team1
-      positionCreator(12.48, 55.77, team2.userName, team2.name, true),
+      positionCreator(
+        12.48,
+        getLatitudeInside(55.77, DISTANCE_TO_SEARCH),
+        team2.userName,
+        team2.name,
+        true
+      ),
       //TODO --> Change latitude below, to a value OUTSIDE the radius given by DISTANCE_TO_SEARC, and the position of team1
-      positionCreator(12.48, 55.77, team3.userName, team3.name, true)
+      positionCreator(
+        12.48,
+        getLatitudeOutside(55.77, DISTANCE_TO_SEARCH),
+        team3.userName,
+        team3.name,
+        true
+      )
     ];
     const locations = await positionsCollection.insertMany(positions);
   });
@@ -117,7 +129,28 @@ describe("Verify /gameapi/getPostIfReached", () => {
     expect(result[0].name).to.be.equal("Team2");
   });
 
-  xit("Should find team2 +team3, since both are inside range", async function() {
+  it("Should find team2 +team3, since both are inside range", async function() {
+    const newPosition = {
+      userName: "t1",
+      password: "secret",
+      lon: 12.48,
+      lat: 55.77,
+      distance: DISTANCE_TO_SEARCH + 1
+    };
+    const config = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPosition)
+    };
+    const result = await fetch(`${URL}/gameapi/nearbyplayers`, config).then(r =>
+      r.json()
+    );
+    expect(result.length).to.be.equal(2);
+    expect(result[0].name).to.be.equal("Team2");
+    expect(result[1].name).to.be.equal("Team3");
     //TODO
   });
 
