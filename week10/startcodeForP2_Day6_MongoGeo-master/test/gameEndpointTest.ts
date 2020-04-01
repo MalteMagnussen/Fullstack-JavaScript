@@ -3,6 +3,7 @@ require("dotenv").config({ path: path.join(process.cwd(), ".env") });
 import { expect } from "chai";
 import { Server } from "http";
 import fetch from "node-fetch";
+import "mocha";
 import mongo, { MongoClient } from "mongodb";
 import { bryptAsync } from "../src/utils/bcrypt-async-helper";
 import setup from "../src/config/setupDB";
@@ -97,8 +98,8 @@ describe("Verify /gameapi/getPostIfReached", () => {
     const newPosition = {
       userName: "t1",
       password: "secret",
-      lat: 55.77,
       lon: 12.48,
+      lat: 55.77,
       distance: DISTANCE_TO_SEARCH
     };
     const config = {

@@ -22,8 +22,8 @@ router.post("/nearbyplayers", async function(req, res, next) {
     const nearbyPlayers = await gameFacade.nearbyPlayers(
       req.body.userName,
       req.body.password,
-      req.body.lat,
       req.body.lon,
+      req.body.lat,
       req.body.distance
     );
     res.send(nearbyPlayers);
