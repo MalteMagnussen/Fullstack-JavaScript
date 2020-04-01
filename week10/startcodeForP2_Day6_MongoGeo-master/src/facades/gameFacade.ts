@@ -129,17 +129,15 @@ export default class GameFacade {
     distance: number
   ): Promise<Array<IPosition>> {
     try {
+      const location = {
+        $near: {
+          $geometry: point,
+          $maxDistance: distance
+        }
+      };
       const found = await positionCollection.find({
         userName: { $ne: clientUserName },
-        location: {
-          $near: {
-            $geometry: {
-              type: "Point",
-              coordinates: [point.coordinates[0], point.coordinates[1]]
-            },
-            $maxDistance: distance
-          }
-        }
+        location
       });
       return found.toArray();
     } catch (err) {
