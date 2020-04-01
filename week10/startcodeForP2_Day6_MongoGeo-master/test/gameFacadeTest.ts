@@ -126,7 +126,7 @@ describe("Verify the GameFacade", () => {
   });
 
   describe("Verify nearbyPlayers", () => {
-    xit("Should not find Team2 (wrong credentials)", async () => {
+    it("Should not find Team2 (wrong credentials)", async () => {
       try {
         const playersFound = await GameFacade.nearbyPlayers(
           "t1",

@@ -61,34 +61,36 @@ export default class UserFacade {
   }
 
   static async checkUser(userName: string, password: string): Promise<boolean> {
-    let userPassword = "";
-    try {
-      const user = await UserFacade.getUser(userName);
-      userPassword = user.password;
-    } catch (err) {}
+    //   let userPassword = "";
+    //   try {
+    const user = await UserFacade.getUser(userName);
+    const userPassword = user.password;
+    //   } catch (err) {}
 
-    const status = await bryptCheckAsync(password, userPassword);
-    return status;
+    //   const status = await bryptCheckAsync(password, userPassword);
+    //   return status;
+    // }
+    var bcrypt = require("bcryptjs");
+    return bcrypt.compare(password, userPassword);
   }
-}
 
-async function test() {
-  console.log("testing");
-  const client = await setup();
-  await UserFacade.setDatabase(client);
-  await userCollection.deleteMany({});
-  await UserFacade.addUser({
-    name: "kim",
-    userName: "kim@b.dk",
-    password: "secret",
-    role: "user"
-  });
-  await UserFacade.addUser({
-    name: "ole",
-    userName: "ole@b.dk",
-    password: "secret",
-    role: "user"
-  });
+  // async function test() {
+  //   console.log("testing");
+  //   const client = await setup();
+  //   await UserFacade.setDatabase(client);
+  //   await userCollection.deleteMany({});
+  //   await UserFacade.addUser({
+  //     name: "kim",
+  //     userName: "kim@b.dk",
+  //     password: "secret",
+  //     role: "user"
+  //   });
+  //   await UserFacade.addUser({
+  //     name: "ole",
+  //     userName: "ole@b.dk",
+  //     password: "secret",
+  //     role: "user"
+  //   });
 
   // const all = await UserFacade.getAllUsers();
   // console.log(all)

@@ -71,13 +71,13 @@ export default class GameFacade {
 
     try {
       //If loggedin update (or create if this is the first login) his position
-
-      if (await UserFacade.checkUser(userName, password)) {
-        // User is logged in.
-      } else {
-        // User is not logged in.
+      // try {
+      //   await UserFacade.checkUser(userName, password);
+      // } catch (err) {
+      //   throw new ApiError("wrong username or password", 403);
+      // }
+      if (!(await UserFacade.checkUser(userName, password)))
         throw new ApiError("wrong username or password", 403);
-      }
 
       const point = { type: "Point", coordinates: [longitude, latitude] };
       const date = new Date();
