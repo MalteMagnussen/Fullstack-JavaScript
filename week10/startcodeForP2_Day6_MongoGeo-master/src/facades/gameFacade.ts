@@ -95,8 +95,8 @@ export default class GameFacade {
             lastUpdated: date,
             location: point
           }
-        } // Add what needs to be added here, remember the document might NOT exist yet
-        { upsert: true, returnOriginal: false }  // Figure out why you probably need to set both of these
+        }, // Add what needs to be added here, remember the document might NOT exist yet
+        { upsert: true, returnOriginal: false } // Figure out why you probably need to set both of these
       );
 
       /* TODO 
@@ -113,7 +113,7 @@ export default class GameFacade {
       const formatted = nearbyPlayers.map(player => {
         return {
           userName: player.userName,
-          lat: latitude, 
+          lat: latitude,
           lon: longitude
           // Complete this, using the requirements
         };
