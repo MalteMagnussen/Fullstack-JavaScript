@@ -32,6 +32,15 @@ router.post("/nearbyplayers", async function(req, res, next) {
   }
 });
 router.post("/getPostIfReached", async function(req, res, next) {
+  /*
+Request JSON: 
+  {"postId":"post1", "lat":3, "lon": 5}
+Response JSON (if found):
+  {"postId":"post1", "task": "2+5", isUrl:false}
+Response JSON (if not reached):
+  {message: "Post not reached", code: 400} (StatusCode = 400)
+  */
+
   throw new Error("Not yet implemented");
 });
 

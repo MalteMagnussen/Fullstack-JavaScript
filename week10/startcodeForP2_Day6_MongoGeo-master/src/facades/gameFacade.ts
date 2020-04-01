@@ -151,6 +151,14 @@ export default class GameFacade {
     lat: number,
     lon: number
   ): Promise<any> {
+    /*
+Request JSON: 
+  {"postId":"post1", "lat":3, "lon": 5}
+Response JSON (if found):
+  {"postId":"post1", "task": "2+5", isUrl:false}
+Response JSON (if not reached):
+  {message: "Post not reached", code: 400} (StatusCode = 400)
+  */
     try {
       const post: IPost | null = await postCollection.findOne({
         _id: postId,
@@ -182,10 +190,7 @@ export default class GameFacade {
       _id: name,
       task: { text: taskTxt, isURL },
       taskSolution,
-      location: {
-        type: "Point",
-        coordinates: [lon, lat]
-      }
+      location: position
     });
     const newPost: any = status.ops;
     return newPost as IPost;
