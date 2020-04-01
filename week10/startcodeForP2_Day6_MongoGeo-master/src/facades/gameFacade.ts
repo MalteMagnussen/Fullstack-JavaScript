@@ -44,9 +44,9 @@ export default class GameFacade {
       //2) Create 2dsphere index on location
       await positionCollection.createIndex({ location: "2dsphere" });
       //TODO uncomment if you plan to do this part of the exercise
-      // postCollection = client.db(dbName).collection(POST_COLLECTION_NAME);
+      postCollection = client.db(dbName).collection(POST_COLLECTION_NAME);
       //TODO If you do this part, create 2dsphere index on location
-      // await postCollection.createIndex({ location: "2dsphere" })
+      await postCollection.createIndex({ location: "2dsphere" });
       return client.db(dbName);
     } catch (err) {
       console.error("Could not connect", err);
@@ -151,6 +151,7 @@ export default class GameFacade {
     lat: number,
     lon: number
   ): Promise<any> {
+    const point = { type: "Point", coordinates: [lon, lat] };
     /*
 Request JSON: 
   {"postId":"post1", "lat":3, "lon": 5}
@@ -159,11 +160,15 @@ Response JSON (if found):
 Response JSON (if not reached):
   {message: "Post not reached", code: 400} (StatusCode = 400)
   */
+    const distance = 10; // When within 10 meter, youre at the post
     try {
       const post: IPost | null = await postCollection.findOne({
         _id: postId,
         location: {
-          $near: {}
+          $near: {
+            $geometry: point,
+            $maxDistance: distance
+          }
           // Todo: Complete this
         }
       });
