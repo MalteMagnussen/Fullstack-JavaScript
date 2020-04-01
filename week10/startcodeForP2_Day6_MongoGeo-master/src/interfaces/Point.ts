@@ -1,4 +1,4 @@
 export default interface IPoint {
-    type: string
-    coordinates : Array<number>
+  type: string;
+  coordinates: Array<number>;
 }
