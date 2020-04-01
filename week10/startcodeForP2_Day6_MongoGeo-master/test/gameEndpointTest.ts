@@ -14,7 +14,8 @@ import {
 } from "../src/utils/geoUtils";
 import {
   USER_COLLECTION_NAME,
-  POSITION_COLLECTION_NAME
+  POSITION_COLLECTION_NAME,
+  POST_COLLECTION_NAME
 } from "../src/config/collectionNames";
 
 let server: Server;
@@ -70,13 +71,17 @@ describe("Verify /gameapi/getPostIfReached", () => {
 
     const status = await usersCollection.insertMany([team1, team2, team3]);
 
+    // MAKE COLLECTION
     const positionsCollection = db.collection(POSITION_COLLECTION_NAME);
+    // DELETE MANY
     await positionsCollection.deleteMany({});
+    // CREATE INDEX
     await positionsCollection.createIndex(
       { lastUpdated: 1 },
       { expireAfterSeconds: 30 }
     );
     await positionsCollection.createIndex({ location: "2dsphere" });
+    // CREATE THINGS TO PUT IN COLLECTION
     const positions = [
       positionCreator(12.48, 55.77, team1.userName, team1.name, true),
       //TODO --> Change latitude below, to a value INSIDE the radius given by DISTANCE_TO_SEARC, and the position of team1
@@ -96,7 +101,25 @@ describe("Verify /gameapi/getPostIfReached", () => {
         true
       )
     ];
+    // INSERT INTO COLLECTION
     const locations = await positionsCollection.insertMany(positions);
+
+    // POSTS
+    // MAKE COLLECTION
+    const postCollection = db.collection(POST_COLLECTION_NAME);
+    // DELETE MANY
+    await postCollection.deleteMany({});
+    // CREATE INDEX
+    await postCollection.createIndex({ location: "2dsphere" });
+    // CREATE THINGS TO PUT IN COLLECTION
+    const post = {
+      _id: name,
+      task: { text: "test", isURL: true },
+      taskSolution: "test",
+      location: { type: "Point", coordinates: [12.48, 55.77] }
+    };
+    // INSERT INTO COLLECTION
+    await postCollection.insertOne(post);
   });
 
   after(async () => {
