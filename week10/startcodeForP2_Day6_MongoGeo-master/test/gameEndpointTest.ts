@@ -154,8 +154,26 @@ describe("Verify /gameapi/getPostIfReached", () => {
     //TODO
   });
 
-  xit("Should NOT find team2, since not in range", async function() {
-    //TODO
+  it("Should NOT find team2, since not in range", async function() {
+    const newPosition = {
+      userName: "t1",
+      password: "secret",
+      lon: 12.48,
+      lat: 55.77,
+      distance: DISTANCE_TO_SEARCH - 2
+    };
+    const config = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPosition)
+    };
+    const result = await fetch(`${URL}/gameapi/nearbyplayers`, config).then(r =>
+      r.json()
+    );
+    expect(result.length).to.be.equal(0);
   });
 
   xit("Should find team2, since since credential are wrong", async function() {
