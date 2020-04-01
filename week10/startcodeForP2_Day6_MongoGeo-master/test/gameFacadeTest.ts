@@ -18,6 +18,7 @@ import {
 } from "../src/config/collectionNames";
 import { ApiError } from "../src/errors/apiError";
 
+import * as assert from "assert";
 let userCollection: mongo.Collection | null;
 let positionCollection: mongo.Collection | null;
 let postCollection: mongo.Collection | null;
@@ -99,7 +100,7 @@ describe("Verify the GameFacade", () => {
     await positionCollection.insertMany(positions);
 
     //Only include this if you plan to do this part
-    /*await postCollection.deleteMany({})
+    await postCollection.deleteMany({});
     await postCollection.insertOne({
       _id: "Post1",
       task: { text: "1+1", isUrl: false },
@@ -108,7 +109,7 @@ describe("Verify the GameFacade", () => {
         type: "Point",
         coordinates: [12.49, 55.77]
       }
-    });*/
+    });
   });
 
   describe("Verify nearbyPlayers", () => {
@@ -137,7 +138,12 @@ describe("Verify the GameFacade", () => {
         );
         throw new Error("Should NEVER get here");
       } catch (err) {
-        expect(err.errorCode).to.be.equal(403);
+        // expect(err.errorCode).to.be.equal(403);
+        // new ApiError("wrong username or password", 403);
+        assert.deepStrictEqual(
+          err,
+          new ApiError("wrong username or password", 403)
+        );
       }
     });
   });
@@ -148,13 +154,44 @@ describe("Verify the GameFacade", () => {
     });
   });
 
+  /**
+ * await postCollection.insertOne({
+      _id: "Post1",
+      task: { text: "1+1", isUrl: false },
+      taskSolution: "2",
+      location: {
+        type: "Point",
+        coordinates: [12.49, 55.77]
+      }
+    });
+ */
+
   describe("Verify getPostIfReached", () => {
-    xit("Should find the post since it was reached", async () => {
-      //TODO
+    it("Should find the post since it was reached", async () => {
+      const myPost = { postId: "Post1", task: "1+1", isUrl: false };
+      const response = await GameFacade.getPostIfReached("Post1", 12.49, 55.77);
+      expect(response).to.be.deep.equal(myPost);
     });
 
-    xit("Should NOT find the post since it was NOT reached", async () => {
-      //TODO
+    it("Should NOT find the post since it was NOT reached", async () => {
+      try {
+        const response = await GameFacade.getPostIfReached("Post1", 15, 14);
+      } catch (err) {
+        expect(err.errorCode).to.be.equal(400);
+      }
+      // const badFunction = async () => {
+      //   await GameFacade.getPostIfReached("Post1", 15, 14);
+      // };
+      // expect(async () => {
+      //   await badFunction();
+      // })
+      //   .to.throw(ApiError, "Post not reached")
+      //   .with.property("code", 400);
+      try {
+        const response = await GameFacade.getPostIfReached("Post1", 15, 14);
+      } catch (err) {
+        assert.deepStrictEqual(err, new ApiError("Post not reached", 400));
+      }
     });
   });
 });

@@ -148,8 +148,9 @@ export default class GameFacade {
 
   static async getPostIfReached(
     postId: string,
-    lat: number,
-    lon: number
+
+    lon: number,
+    lat: number
   ): Promise<any> {
     const point = { type: "Point", coordinates: [lon, lat] };
     /*
