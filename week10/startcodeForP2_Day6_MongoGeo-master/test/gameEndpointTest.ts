@@ -176,8 +176,27 @@ describe("Verify /gameapi/getPostIfReached", () => {
     expect(result.length).to.be.equal(0);
   });
 
-  xit("Should find team2, since since credential are wrong", async function() {
-    //TODO
+  it("Should NOT find team2, since credential are wrong", async function() {
+    const newPosition = {
+      userName: "t1",
+      password: "asdasdasgafadfsaad",
+      lon: 12.48,
+      lat: 55.77,
+      distance: DISTANCE_TO_SEARCH
+    };
+    const config = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPosition)
+    };
+    const result = await fetch(`${URL}/gameapi/nearbyplayers`, config).then(r =>
+      r.json()
+    );
+    expect(result.message).to.be.equal("wrong username or password");
+    expect(result.code).to.be.equal(403);
   });
 
   xit("Should .....", async () => {});
