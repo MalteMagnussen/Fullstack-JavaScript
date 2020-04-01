@@ -37,12 +37,16 @@ export default class GameFacade {
 
       //TODO
       //1) Create expiresAfterSeconds index on lastUpdated
+      await positionCollection.createIndex(
+        { lastUpdated: 1 },
+        { expireAfterSeconds: EXPIRES_AFTER }
+      );
       //2) Create 2dsphere index on location
-
+      await positionCollection.createIndex({ location: "2dsphere" });
       //TODO uncomment if you plan to do this part of the exercise
-      //postCollection = client.db(dbName).collection(POST_COLLECTION_NAME);
+      // postCollection = client.db(dbName).collection(POST_COLLECTION_NAME);
       //TODO If you do this part, create 2dsphere index on location
-      //await postCollection.createIndex({ location: "2dsphere" })
+      // await postCollection.createIndex({ location: "2dsphere" })
       return client.db(dbName);
     } catch (err) {
       console.error("Could not connect", err);
@@ -60,12 +64,21 @@ export default class GameFacade {
     try {
       //Step-1. Find the user, and if found continue
       // Use relevant methods in the user facad>
+      user = await UserFacade.getUser(userName);
     } catch (err) {
       throw new ApiError("wrong username or password", 403);
     }
 
     try {
       //If loggedin update (or create if this is the first login) his position
+
+      if (await UserFacade.checkUser(userName, password)) {
+        // User is logged in.
+      } else {
+        // User is not logged in.
+        throw new ApiError("wrong username or password", 403);
+      }
+
       const point = { type: "Point", coordinates: [longitude, latitude] };
       const date = new Date();
       //Todo
@@ -74,9 +87,16 @@ export default class GameFacade {
         Also remember to set a new timeStamp (use the date create above), since this document should only live for a
         short time */
       const found = await positionCollection.findOneAndUpdate(
-        {}, //Add what we are searching for (the userName in a Position Document)
-        { $set: {} } // Add what needs to be added here, remember the document might NOT exist yet
-        //{ upsert: , returnOriginal:  }  // Figure out why you probably need to set both of these
+        { userName }, //Add what we are searching for (the userName in a Position Document)
+        {
+          $set: {
+            userName,
+            name: user.name,
+            lastUpdated: date,
+            location: point
+          }
+        } // Add what needs to be added here, remember the document might NOT exist yet
+        { upsert: true, returnOriginal: false }  // Figure out why you probably need to set both of these
       );
 
       /* TODO 
@@ -92,7 +112,9 @@ export default class GameFacade {
       //If anyone found,  format acording to requirements
       const formatted = nearbyPlayers.map(player => {
         return {
-          userName: player.userName
+          userName: player.userName,
+          lat: latitude, 
+          lon: longitude
           // Complete this, using the requirements
         };
       });
