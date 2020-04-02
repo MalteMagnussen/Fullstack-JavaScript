@@ -41,13 +41,12 @@ Response JSON (if not reached):
   {message: "Post not reached", code: 400} (StatusCode = 400)
   */
   try {
-    res.send(
-      await gameFacade.getPostIfReached(
-        req.body.postId,
-        req.body.lon,
-        req.body.lat
-      )
+    const result = await gameFacade.getPostIfReached(
+      req.body.postId,
+      req.body.lon,
+      req.body.lat
     );
+    res.send(result);
   } catch (err) {
     next(err);
   }

@@ -68,8 +68,26 @@ describe("Verify /gameapi/getPostIfReached", () => {
       password: secretHashed,
       role: "team"
     };
+    const team4 = {
+      name: "Team4",
+      userName: "t4",
+      password: secretHashed,
+      role: "team"
+    };
+    const team5 = {
+      name: "Team5",
+      userName: "t5",
+      password: secretHashed,
+      role: "team"
+    };
 
-    const status = await usersCollection.insertMany([team1, team2, team3]);
+    const status = await usersCollection.insertMany([
+      team1,
+      team2,
+      team3
+      // team4,
+      // team5
+    ]);
 
     // MAKE COLLECTION
     const positionsCollection = db.collection(POSITION_COLLECTION_NAME);
@@ -100,6 +118,22 @@ describe("Verify /gameapi/getPostIfReached", () => {
         team3.name,
         true
       )
+      // // POSITION FOR POST OUTSIDE
+      // positionCreator(
+      //   12.48,
+      //   getLatitudeOutside(55.77, 10),
+      //   team4.userName,
+      //   team4.name,
+      //   true
+      // ),
+      // // POSITION FOR POST INSIDE
+      // positionCreator(
+      //   12.48,
+      //   getLatitudeInside(55.77, 10),
+      //   team5.userName,
+      //   team5.name,
+      //   true
+      // )
     ];
     // INSERT INTO COLLECTION
     const locations = await positionsCollection.insertMany(positions);
@@ -114,7 +148,7 @@ describe("Verify /gameapi/getPostIfReached", () => {
     // CREATE THINGS TO PUT IN COLLECTION
     const post = {
       _id: "Post",
-      task: { text: "test", isURL: true },
+      task: { text: "test", isUrl: true },
       taskSolution: "test",
       location: { type: "Point", coordinates: [12.48, 55.77] }
     };
@@ -224,5 +258,35 @@ describe("Verify /gameapi/getPostIfReached", () => {
     expect(result.code).to.be.equal(403);
   });
 
-  xit("Should .....", async () => {});
+  /**
+   * const post = {
+      _id: "Post",
+      task: { text: "test", isURL: true },
+      taskSolution: "test",
+      location: { type: "Point", coordinates: [12.48, 55.77] }
+    };
+   */
+
+  it("Should find post, since team in range", async () => {
+    const newPosition = {
+      postId: "Post",
+      lon: 12.48,
+      lat: 55.77
+    };
+    const config = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPosition)
+    };
+    const result = await fetch(
+      `${URL}/gameapi/getPostIfReached`,
+      config
+    ).then(r => r.json());
+    expect(result.postId).to.be.equal("Post");
+    expect(result.task).to.be.equal("test");
+    expect(result.isUrl).to.be.true;
+  });
 });

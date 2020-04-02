@@ -176,7 +176,12 @@ Response JSON (if not reached):
       if (post === null) {
         throw new ApiError("Post not reached", 400);
       }
-      return { postId: post._id, task: post.task.text, isUrl: post.task.isUrl };
+      const returnObject = {
+        postId: post._id,
+        task: post.task.text,
+        isUrl: post.task.isUrl
+      };
+      return returnObject;
     } catch (err) {
       throw err;
     }
