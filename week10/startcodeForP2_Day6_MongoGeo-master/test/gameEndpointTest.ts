@@ -113,13 +113,15 @@ describe("Verify /gameapi/getPostIfReached", () => {
     await postCollection.createIndex({ location: "2dsphere" });
     // CREATE THINGS TO PUT IN COLLECTION
     const post = {
-      _id: name,
+      _id: "Post",
       task: { text: "test", isURL: true },
       taskSolution: "test",
       location: { type: "Point", coordinates: [12.48, 55.77] }
     };
     // INSERT INTO COLLECTION
     await postCollection.insertOne(post);
+
+    //console.log(await postCollection.find({}));
   });
 
   after(async () => {

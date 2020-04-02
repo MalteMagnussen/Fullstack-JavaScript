@@ -40,8 +40,17 @@ Response JSON (if found):
 Response JSON (if not reached):
   {message: "Post not reached", code: 400} (StatusCode = 400)
   */
-
-  throw new Error("Not yet implemented");
+  try {
+    res.send(
+      await gameFacade.getPostIfReached(
+        req.body.postId,
+        req.body.lon,
+        req.body.lat
+      )
+    );
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
