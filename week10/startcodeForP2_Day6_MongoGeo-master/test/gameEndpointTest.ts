@@ -267,7 +267,7 @@ describe("Verify /gameapi/getPostIfReached", () => {
     };
    */
 
-  it("Should find post, since team in range", async () => {
+  it("Should find post, since point in range", async () => {
     const newPosition = {
       postId: "Post",
       lon: 12.48,
@@ -288,5 +288,28 @@ describe("Verify /gameapi/getPostIfReached", () => {
     expect(result.postId).to.be.equal("Post");
     expect(result.task).to.be.equal("test");
     expect(result.isUrl).to.be.true;
+  });
+
+  it("Should NOT find post, since point NOT in range", async () => {
+    const newPosition = {
+      postId: "Post",
+      lon: 12,
+      lat: 55
+    };
+    const config = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPosition)
+    };
+    const result = await fetch(
+      `${URL}/gameapi/getPostIfReached`,
+      config
+    ).then(r => r.json());
+    // new ApiError("Post not reached", 400);
+    expect(result.message).to.be.equal("Post not reached");
+    expect(result.code).to.be.equal(400);
   });
 });
