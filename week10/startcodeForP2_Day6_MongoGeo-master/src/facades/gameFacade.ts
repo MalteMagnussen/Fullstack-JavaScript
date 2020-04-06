@@ -9,11 +9,12 @@ import IPost from "../interfaces/Post";
 import { positionCreator } from "../utils/geoUtils";
 import {
   POSITION_COLLECTION_NAME,
-  POST_COLLECTION_NAME
+  POST_COLLECTION_NAME,
 } from "../config/collectionNames";
 
 let positionCollection: mongo.Collection;
 let postCollection: mongo.Collection;
+// How many seconds, before the position is considered outdated.
 const EXPIRES_AFTER = 30;
 
 export default class GameFacade {
@@ -93,8 +94,8 @@ export default class GameFacade {
             userName,
             name: user.name,
             lastUpdated: date,
-            location: point
-          }
+            location: point,
+          },
         }, // Add what needs to be added here, remember the document might NOT exist yet
         { upsert: true, returnOriginal: false } // Figure out why you probably need to set both of these
       );
@@ -110,12 +111,12 @@ export default class GameFacade {
       );
 
       //If anyone found,  format acording to requirements
-      const formatted = nearbyPlayers.map(player => {
+      const formatted = nearbyPlayers.map((player) => {
         return {
           userName: player.userName,
           name: player.name,
           lat: latitude,
-          lon: longitude
+          lon: longitude,
           // Complete this, using the requirements
         };
       });
@@ -133,12 +134,12 @@ export default class GameFacade {
       const location = {
         $near: {
           $geometry: point,
-          $maxDistance: distance
-        }
+          $maxDistance: distance,
+        },
       };
       const found = await positionCollection.find({
         userName: { $ne: clientUserName },
-        location
+        location,
       });
       return found.toArray();
     } catch (err) {
@@ -168,10 +169,10 @@ Response JSON (if not reached):
         location: {
           $near: {
             $geometry: point,
-            $maxDistance: distance
-          }
+            $maxDistance: distance,
+          },
           // Todo: Complete this
-        }
+        },
       });
       if (post === null) {
         throw new ApiError("Post not reached", 400);
@@ -179,7 +180,7 @@ Response JSON (if not reached):
       const returnObject = {
         postId: post._id,
         task: post.task.text,
-        isUrl: post.task.isUrl
+        isUrl: post.task.isUrl,
       };
       return returnObject;
     } catch (err) {
@@ -201,7 +202,7 @@ Response JSON (if not reached):
       _id: name,
       task: { text: taskTxt, isURL },
       taskSolution,
-      location: position
+      location: position,
     });
     const newPost: any = status.ops;
     return newPost as IPost;

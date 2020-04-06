@@ -7,6 +7,7 @@ class ApiError extends Error {
     super(msg);
     // Set the prototype explicitly.
     // https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
+    // Helps with testing.
     Object.setPrototypeOf(this, ApiError.prototype);
 
     // Maintains proper stack trace for where our error was thrown (only available on V8)
@@ -15,6 +16,8 @@ class ApiError extends Error {
     }
 
     this.name = "ApiError";
+    // ErrorCode is an optional argument.
+    // If no ErrorCode is provided in the call to this function, use 500 by default.
     this.errorCode = errorCode || 500;
   }
 }
