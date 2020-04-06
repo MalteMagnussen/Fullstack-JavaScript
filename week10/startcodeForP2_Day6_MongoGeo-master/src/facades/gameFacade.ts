@@ -170,7 +170,6 @@ export default class GameFacade {
     lon: number,
     lat: number
   ): Promise<any> {
-    const point = { type: "Point", coordinates: [lon, lat] };
     /* EXAMPLE JSON
     Request JSON: 
       {"postId":"post1", "lat":3, "lon": 5}
@@ -179,27 +178,26 @@ export default class GameFacade {
     Response JSON (if not reached):
       {message: "Post not reached", code: 400} (StatusCode = 400)
     */
-    const distance = this.DIST_TO_CENTER; // When within 10 meter, youre at the post
     try {
+      // Find the post.
       const post: IPost | null = await postCollection.findOne({
         _id: postId,
         location: {
           $near: {
-            $geometry: point,
-            $maxDistance: distance,
+            // GeoJSON point
+            $geometry: { type: "Point", coordinates: [lon, lat] },
+            $maxDistance: this.DIST_TO_CENTER,
           },
-          // Todo: Complete this
         },
       });
       if (post === null) {
         throw new ApiError("Post not reached", 400);
       }
-      const returnObject = {
+      return {
         postId: post._id,
         task: post.task.text,
         isUrl: post.task.isUrl,
       };
-      return returnObject;
     } catch (err) {
       throw err;
     }
