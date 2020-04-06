@@ -33,8 +33,8 @@ function positionCreator(
     lastUpdated: date,
     location: {
       type: "Point",
-      coordinates: [lon, lat]
-    }
+      coordinates: [lon, lat],
+    },
   };
 
   return position;

@@ -10,12 +10,12 @@ import setup from "../src/config/setupDB";
 import {
   positionCreator,
   getLatitudeInside,
-  getLatitudeOutside
+  getLatitudeOutside,
 } from "../src/utils/geoUtils";
 import {
   USER_COLLECTION_NAME,
   POSITION_COLLECTION_NAME,
-  POST_COLLECTION_NAME
+  POST_COLLECTION_NAME,
 } from "../src/config/collectionNames";
 
 let server: Server;
@@ -28,7 +28,7 @@ describe("Verify /gameapi/getPostIfReached", () => {
   let URL: string;
 
   //IMPORTANT --> this does now work with Mocha for ARROW-functions
-  before(async function() {
+  before(async function () {
     //@ts-ignore
     this.timeout(MOCHA_TIMEOUT);
 
@@ -54,37 +54,37 @@ describe("Verify /gameapi/getPostIfReached", () => {
       name: "Team1",
       userName: "t1",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team2 = {
       name: "Team2",
       userName: "t2",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team3 = {
       name: "Team3",
       userName: "t3",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team4 = {
       name: "Team4",
       userName: "t4",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team5 = {
       name: "Team5",
       userName: "t5",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
 
     const status = await usersCollection.insertMany([
       team1,
       team2,
-      team3
+      team3,
       // team4,
       // team5
     ]);
@@ -117,7 +117,7 @@ describe("Verify /gameapi/getPostIfReached", () => {
         team3.userName,
         team3.name,
         true
-      )
+      ),
       // // POSITION FOR POST OUTSIDE
       // positionCreator(
       //   12.48,
@@ -150,7 +150,7 @@ describe("Verify /gameapi/getPostIfReached", () => {
       _id: "Post",
       task: { text: "test", isUrl: true },
       taskSolution: "test",
-      location: { type: "Point", coordinates: [12.48, 55.77] }
+      location: { type: "Point", coordinates: [12.48, 55.77] },
     };
     // INSERT INTO COLLECTION
     await postCollection.insertOne(post);
@@ -163,7 +163,7 @@ describe("Verify /gameapi/getPostIfReached", () => {
     await client.close();
   });
 
-  it("Should find team2, since inside range", async function() {
+  it("Should find team2, since inside range", async function () {
     //  //@ts-ignore
     //  this.timeout(MOCHA_TIMEOUT)
     const newPosition = {
@@ -171,89 +171,93 @@ describe("Verify /gameapi/getPostIfReached", () => {
       password: "secret",
       lon: 12.48,
       lat: 55.77,
-      distance: DISTANCE_TO_SEARCH
+      distance: DISTANCE_TO_SEARCH,
     };
     const config = {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPosition)
+      body: JSON.stringify(newPosition),
     };
-    const result = await fetch(`${URL}/gameapi/nearbyplayers`, config).then(r =>
-      r.json()
-    );
+    const result = await fetch(
+      `${URL}/gameapi/nearbyplayers`,
+      config
+    ).then((r) => r.json());
     expect(result.length).to.be.equal(1);
     expect(result[0].name).to.be.equal("Team2");
   });
 
-  it("Should find team2 +team3, since both are inside range", async function() {
+  it("Should find team2 +team3, since both are inside range", async function () {
     const newPosition = {
       userName: "t1",
       password: "secret",
       lon: 12.48,
       lat: 55.77,
-      distance: DISTANCE_TO_SEARCH + 1
+      distance: DISTANCE_TO_SEARCH + 1,
     };
     const config = {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPosition)
+      body: JSON.stringify(newPosition),
     };
-    const result = await fetch(`${URL}/gameapi/nearbyplayers`, config).then(r =>
-      r.json()
-    );
+    const result = await fetch(
+      `${URL}/gameapi/nearbyplayers`,
+      config
+    ).then((r) => r.json());
     expect(result.length).to.be.equal(2);
     expect(result[0].name).to.be.equal("Team2");
     expect(result[1].name).to.be.equal("Team3");
     //TODO
   });
 
-  it("Should NOT find team2, since not in range", async function() {
+  it("Should NOT find team2, since not in range", async function () {
     const newPosition = {
       userName: "t1",
       password: "secret",
       lon: 12.48,
       lat: 55.77,
-      distance: DISTANCE_TO_SEARCH - 2
+      distance: DISTANCE_TO_SEARCH - 2,
     };
     const config = {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPosition)
+      body: JSON.stringify(newPosition),
     };
-    const result = await fetch(`${URL}/gameapi/nearbyplayers`, config).then(r =>
-      r.json()
-    );
+    const result = await fetch(
+      `${URL}/gameapi/nearbyplayers`,
+      config
+    ).then((r) => r.json());
     expect(result.length).to.be.equal(0);
   });
 
-  it("Should NOT find team2, since credential are wrong", async function() {
+  it("Should NOT find team2, since credential are wrong", async function () {
     const newPosition = {
       userName: "t1",
       password: "asdasdasgafadfsaad",
       lon: 12.48,
       lat: 55.77,
-      distance: DISTANCE_TO_SEARCH
+      distance: DISTANCE_TO_SEARCH,
     };
     const config = {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPosition)
+      body: JSON.stringify(newPosition),
     };
-    const result = await fetch(`${URL}/gameapi/nearbyplayers`, config).then(r =>
-      r.json()
-    );
+    const result = await fetch(
+      `${URL}/gameapi/nearbyplayers`,
+      config
+    ).then((r) => r.json());
     expect(result.message).to.be.equal("wrong username or password");
     expect(result.code).to.be.equal(403);
   });
@@ -271,20 +275,20 @@ describe("Verify /gameapi/getPostIfReached", () => {
     const newPosition = {
       postId: "Post",
       lon: 12.48,
-      lat: 55.77
+      lat: 55.77,
     };
     const config = {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPosition)
+      body: JSON.stringify(newPosition),
     };
     const result = await fetch(
       `${URL}/gameapi/getPostIfReached`,
       config
-    ).then(r => r.json());
+    ).then((r) => r.json());
     expect(result.postId).to.be.equal("Post");
     expect(result.task).to.be.equal("test");
     expect(result.isUrl).to.be.true;
@@ -294,20 +298,20 @@ describe("Verify /gameapi/getPostIfReached", () => {
     const newPosition = {
       postId: "Post",
       lon: 12,
-      lat: 55
+      lat: 55,
     };
     const config = {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPosition)
+      body: JSON.stringify(newPosition),
     };
     const result = await fetch(
       `${URL}/gameapi/getPostIfReached`,
       config
-    ).then(r => r.json());
+    ).then((r) => r.json());
     // new ApiError("Post not reached", 400);
     expect(result.message).to.be.equal("Post not reached");
     expect(result.code).to.be.equal(400);

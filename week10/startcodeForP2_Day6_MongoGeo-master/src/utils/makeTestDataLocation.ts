@@ -7,14 +7,14 @@ import { positionCreator } from "./geoUtils";
 import {
   USER_COLLECTION_NAME,
   POSITION_COLLECTION_NAME,
-  POST_COLLECTION_NAME
+  POST_COLLECTION_NAME,
 } from "../config/collectionNames";
 
 const uri = process.env.CONNECTION || "";
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 (async function makeTestData() {
@@ -29,19 +29,19 @@ const client = new MongoClient(uri, {
       name: "Team1",
       userName: "t1",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team2 = {
       name: "Team2",
       userName: "t2",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team3 = {
       name: "Team3",
       userName: "t3",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
 
     const status = await usersCollection.insertMany([team1, team2, team3]);
@@ -57,7 +57,7 @@ const client = new MongoClient(uri, {
       positionCreator(12.48, 55.77, team1.userName, team1.name, true),
       positionCreator(12.49, 55.77, team2.userName, team2.name, true),
       positionCreator(12.5, 55.77, team3.userName, team3.name, true),
-      positionCreator(12.51, 55.77, "xxx", "yyy", false)
+      positionCreator(12.51, 55.77, "xxx", "yyy", false),
     ];
     const locations = await positionsCollection.insertMany(positions);
 
@@ -70,8 +70,8 @@ const client = new MongoClient(uri, {
         taskSolution: "2",
         location: {
           type: "Point",
-          coordinates: [12.49, 55.77]
-        }
+          coordinates: [12.49, 55.77],
+        },
       },
       {
         _id: "Post2",
@@ -79,9 +79,9 @@ const client = new MongoClient(uri, {
         taskSolution: "0",
         location: {
           type: "Point",
-          coordinates: [12.4955, 55.774]
-        }
-      }
+          coordinates: [12.4955, 55.774],
+        },
+      },
     ]);
     console.log(`Inserted ${posts.insertedCount} test Posts`);
 

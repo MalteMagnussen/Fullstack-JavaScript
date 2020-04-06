@@ -9,12 +9,12 @@ import { bryptAsync } from "../src/utils/bcrypt-async-helper";
 import {
   positionCreator,
   getLatitudeOutside,
-  getLatitudeInside
+  getLatitudeInside,
 } from "../src/utils/geoUtils";
 import {
   USER_COLLECTION_NAME,
   POSITION_COLLECTION_NAME,
-  POST_COLLECTION_NAME
+  POST_COLLECTION_NAME,
 } from "../src/config/collectionNames";
 import { ApiError } from "../src/errors/apiError";
 
@@ -60,19 +60,19 @@ describe("Verify the GameFacade", () => {
       name: "Team1",
       userName: "t1",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team2 = {
       name: "Team2",
       userName: "t2",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     const team3 = {
       name: "Team3",
       userName: "t3",
       password: secretHashed,
-      role: "team"
+      role: "team",
     };
     await userCollection.insertMany([team1, team2, team3]);
 
@@ -95,7 +95,7 @@ describe("Verify the GameFacade", () => {
         team3.userName,
         team3.name,
         true
-      )
+      ),
     ];
     await positionCollection.insertMany(positions);
 
@@ -107,8 +107,8 @@ describe("Verify the GameFacade", () => {
       taskSolution: "2",
       location: {
         type: "Point",
-        coordinates: [12.49, 55.77]
-      }
+        coordinates: [12.49, 55.77],
+      },
     });
   });
 

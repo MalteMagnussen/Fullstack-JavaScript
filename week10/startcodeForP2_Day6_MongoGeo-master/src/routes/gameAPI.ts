@@ -12,7 +12,7 @@ import UserFacade from "../facades/userFacadeWithDB";
   gameFacade.setDatabase(client);
 })();
 
-router.post("/nearbyplayers", async function(req, res, next) {
+router.post("/nearbyplayers", async function (req, res, next) {
   /*
   {"userName":"team1", "password":"secret", "lat":3, "lon": 5,"distance": 3}
  */
@@ -31,7 +31,7 @@ router.post("/nearbyplayers", async function(req, res, next) {
     next(err);
   }
 });
-router.post("/getPostIfReached", async function(req, res, next) {
+router.post("/getPostIfReached", async function (req, res, next) {
   /*
 Request JSON: 
   {"postId":"post1", "lat":3, "lon": 5}
