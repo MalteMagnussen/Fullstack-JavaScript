@@ -18,12 +18,12 @@ let postCollection: mongo.Collection;
 const EXPIRES_AFTER = 30;
 
 export default class GameFacade {
-  // Currently not in use. What is it for?
-  static readonly DIST_TO_CENTER = 15;
+  // Distance to post, to be considered in range in meters. Is used in the getPostIfReached function.
+  static readonly DIST_TO_CENTER = 10;
 
   /**
    * Set the Database to connect to.
-   * The Test Document if testing, otherwise the "Production" Document.
+   * The Test Database if testing, otherwise the "Production" Database.
    * @param client The Client you wish to connect to.
    */
   static async setDatabase(client: mongo.MongoClient) {
@@ -159,22 +159,27 @@ export default class GameFacade {
     }
   }
 
+  /**
+   * Get a Post, if you have reached it.
+   * @param postId ID of the Post you're at.
+   * @param lon Longitude
+   * @param lat Latitude
+   */
   static async getPostIfReached(
     postId: string,
-
     lon: number,
     lat: number
   ): Promise<any> {
     const point = { type: "Point", coordinates: [lon, lat] };
-    /*
-Request JSON: 
-  {"postId":"post1", "lat":3, "lon": 5}
-Response JSON (if found):
-  {"postId":"post1", "task": "2+5", isUrl:false}
-Response JSON (if not reached):
-  {message: "Post not reached", code: 400} (StatusCode = 400)
-  */
-    const distance = 10; // When within 10 meter, youre at the post
+    /* EXAMPLE JSON
+    Request JSON: 
+      {"postId":"post1", "lat":3, "lon": 5}
+    Response JSON (if found):
+      {"postId":"post1", "task": "2+5", isUrl:false}
+    Response JSON (if not reached):
+      {message: "Post not reached", code: 400} (StatusCode = 400)
+    */
+    const distance = this.DIST_TO_CENTER; // When within 10 meter, youre at the post
     try {
       const post: IPost | null = await postCollection.findOne({
         _id: postId,
@@ -200,7 +205,15 @@ Response JSON (if not reached):
     }
   }
 
-  //You can use this if you like, to add new post's via the facade
+  /**
+   * Adds new posts
+   * @param name Of the post
+   * @param taskTxt The task to complete for the Team.
+   * @param isURL Is the task a link?
+   * @param taskSolution Solution for the task.
+   * @param lon Longitude
+   * @param lat Latitude
+   */
   static async addPost(
     name: string,
     taskTxt: string,
@@ -209,7 +222,9 @@ Response JSON (if not reached):
     lon: number,
     lat: number
   ): Promise<IPost> {
+    // GeoJSON point.
     const position = { type: "Point", coordinates: [lon, lat] };
+    // insert a post.
     const status = await postCollection.insertOne({
       _id: name,
       task: { text: taskTxt, isURL },
