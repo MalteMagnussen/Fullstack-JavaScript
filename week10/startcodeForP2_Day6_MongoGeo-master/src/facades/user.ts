@@ -23,15 +23,20 @@ export default class UserFacade {
       name: "Peter Pan",
       userName: "pp@b.dk",
       password: "secret",
-      role: "user"
+      role: "user",
     },
     {
       name: "Donald Duck",
       userName: "dd@b.dk",
       password: "secret",
-      role: "user"
+      role: "user",
     },
-    { name: "admin", userName: "admin@a.dk", password: "secret", role: "admin" }
+    {
+      name: "admin",
+      userName: "admin@a.dk",
+      password: "secret",
+      role: "admin",
+    },
   ];
 
   static async addUser(user: IGameUser): Promise<string> {
@@ -41,7 +46,7 @@ export default class UserFacade {
     return dummyReturnPromise<string>("User was added");
   }
   static async deleteUser(userName: string): Promise<string> {
-    const newArray = UserFacade.users.filter(u => u.userName != userName);
+    const newArray = UserFacade.users.filter((u) => u.userName != userName);
     UserFacade.users = [...newArray];
     return dummyReturnPromise<string>("User was deleted");
   }
@@ -51,7 +56,7 @@ export default class UserFacade {
 
   static async getUser(userName: string): Promise<IGameUser> {
     let user: IGameUser | undefined;
-    user = UserFacade.users.find(u => u.userName === userName);
+    user = UserFacade.users.find((u) => u.userName === userName);
     if (user) {
       return dummyReturnPromise<IGameUser>(user);
     }
@@ -75,13 +80,13 @@ async function test() {
     name: "kim",
     userName: "kim@b.dk",
     password: "secret",
-    role: "user"
+    role: "user",
   });
   await UserFacade.addUser({
     name: "ole",
     userName: "ole@b.dk",
     password: "secret",
-    role: "user"
+    role: "user",
   });
   const all = await (await UserFacade.getAllUsers()).length;
   debug("users", all);
