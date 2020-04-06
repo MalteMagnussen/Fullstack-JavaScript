@@ -66,6 +66,14 @@ export default class GameFacade {
     }
   }
 
+  /**
+   * Find Nearby Players
+   * @param userName Username of the person who you want to find other nearby players around (yourself)
+   * @param password Your password
+   * @param longitude
+   * @param latitude
+   * @param distance Radius of the circle around you, you wish to find the people inside of.
+   */
   static async nearbyPlayers(
     userName: string,
     password: string,
@@ -76,7 +84,6 @@ export default class GameFacade {
     let user;
     try {
       // Step-1. Find the user, and if found continue
-      // Use relevant methods in the user facad>
       user = await UserFacade.getUser(userName);
     } catch (err) {
       throw new ApiError("wrong username or password", 403);
@@ -84,52 +91,40 @@ export default class GameFacade {
 
     try {
       //If loggedin update (or create if this is the first login) his position
-      // try {
-      //   await UserFacade.checkUser(userName, password);
-      // } catch (err) {
-      //   throw new ApiError("wrong username or password", 403);
-      // }
       if (!(await UserFacade.checkUser(userName, password)))
         throw new ApiError("wrong username or password", 403);
 
       const point = { type: "Point", coordinates: [longitude, latitude] };
-      const date = new Date();
-      //Todo
-      /*It's important you know what to do her. Remember a document for this user does
-        not neccesarily exist. If not, you must create it, in not found (see what you can do wit upsert)
-        Also remember to set a new timeStamp (use the date create above), since this document should only live for a
-        short time */
       const found = await positionCollection.findOneAndUpdate(
         { userName }, //Add what we are searching for (the userName in a Position Document)
         {
           $set: {
             userName,
             name: user.name,
-            lastUpdated: date,
+            lastUpdated: new Date(),
             location: point,
           },
-        }, // Add what needs to be added here, remember the document might NOT exist yet
-        { upsert: true, returnOriginal: false } // Figure out why you probably need to set both of these
+        }, // upsert creates the position, if it doesnt exist yet.
+        { upsert: true, returnOriginal: false }
       );
 
-      /* TODO 
-         By know we have updated (or created) the callers position-document
-         Next step is to see if we can find any nearby players, friends or whatever you call them
-         */
+      /* 
+      By now we have updated (or created) the callers position-document
+      Next step is to see if we can find any nearby players
+      */
       const nearbyPlayers = await GameFacade.findNearbyPlayers(
         userName,
         point,
         distance
       );
 
-      //If anyone found,  format acording to requirements
+      //If anyone found, format acording to requirements
       const formatted = nearbyPlayers.map((player) => {
         return {
           userName: player.userName,
           name: player.name,
           lat: latitude,
           lon: longitude,
-          // Complete this, using the requirements
         };
       });
       return formatted;
@@ -137,6 +132,13 @@ export default class GameFacade {
       throw err;
     }
   }
+
+  /**
+   * Help function
+   * @param clientUserName
+   * @param point
+   * @param distance
+   */
   static async findNearbyPlayers(
     clientUserName: string,
     point: IPoint,
