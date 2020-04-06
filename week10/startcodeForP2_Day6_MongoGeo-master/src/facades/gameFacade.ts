@@ -52,14 +52,16 @@ export default class GameFacade {
         { lastUpdated: 1 },
         { expireAfterSeconds: EXPIRES_AFTER }
       );
-      //2) Create 2dsphere index on location
+      // Creates 2dsphere index on location
       await positionCollection.createIndex({ location: "2dsphere" });
-      //TODO uncomment if you plan to do this part of the exercise
+
+      // Do the same as above, but for the post collection (collection == table basically)
       postCollection = client.db(dbName).collection(POST_COLLECTION_NAME);
-      //TODO If you do this part, create 2dsphere index on location
       await postCollection.createIndex({ location: "2dsphere" });
+      // Return a proper client for use.
       return client.db(dbName);
     } catch (err) {
+      // We shouldn't console log tbh. Should use the Debug tool instead.
       console.error("Could not connect", err);
     }
   }
@@ -73,7 +75,7 @@ export default class GameFacade {
   ) {
     let user;
     try {
-      //Step-1. Find the user, and if found continue
+      // Step-1. Find the user, and if found continue
       // Use relevant methods in the user facad>
       user = await UserFacade.getUser(userName);
     } catch (err) {
