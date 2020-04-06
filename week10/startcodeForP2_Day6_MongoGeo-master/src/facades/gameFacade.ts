@@ -18,10 +18,19 @@ let postCollection: mongo.Collection;
 const EXPIRES_AFTER = 30;
 
 export default class GameFacade {
+  // Currently not in use. What is it for?
   static readonly DIST_TO_CENTER = 15;
 
+  /**
+   * Set the Database to connect to.
+   * The Test Document if testing, otherwise the "Production" Document.
+   * @param client The Client you wish to connect to.
+   */
   static async setDatabase(client: mongo.MongoClient) {
+    // Pull the name of the Database from the .env file.
+    // Node uses the .env file as its environment.
     const dbName = process.env.DB_NAME;
+    // Make sure we have a Database name.
     if (!dbName) {
       throw new Error("Database name not provided");
     }
@@ -29,15 +38,16 @@ export default class GameFacade {
     await UserFacade.setDatabase(client);
 
     try {
+      // Make sure we have a connection. Wait until we have the connection.
       if (!client.isConnected()) {
         await client.connect();
       }
+      // Get the Position Collection for use.
       positionCollection = client
         .db(dbName)
         .collection(POSITION_COLLECTION_NAME);
 
-      //TODO
-      //1) Create expiresAfterSeconds index on lastUpdated
+      // Creates expiresAfterSeconds index on lastUpdated
       await positionCollection.createIndex(
         { lastUpdated: 1 },
         { expireAfterSeconds: EXPIRES_AFTER }
