@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 export default function App() {
   return (
-    <View style={{ padding: 50 }}>
+    <View style={styles.screen}>
       <View
         style={{
           flexDirection: "row",
@@ -26,3 +26,9 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    padding: 50,
+  },
+});
