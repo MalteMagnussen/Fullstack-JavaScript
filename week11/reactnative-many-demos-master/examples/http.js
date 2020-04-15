@@ -2,14 +2,41 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 
 FetchDemo = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getMovies = async () => {
+      try {
+        let response = await fetch("https://reactnative.dev/movies.json");
+        let json = await response.json();
+        setData(json.movies);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getMovies();
+  });
+
   return (
     <View style={{ flex: 1, paddingTop: 22 }}>
-      <Text style={{ fontSize: 18 }}>
-        Change me to demonstrate basic use of Fetch
-      </Text>
-      <Text style={{ fontSize: 18 }}>
-        And IMPORTANT, also useEffect and useState
-      </Text>
+      <View style={{ flex: 1, padding: 24 }}>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <FlatList
+            data={data}
+            keyExtractor={({ id }, index) => id}
+            renderItem={({ item }) => (
+              <Text>
+                {item.title}, {item.releaseYear}
+              </Text>
+            )}
+          />
+        )}
+      </View>
     </View>
   );
 };
