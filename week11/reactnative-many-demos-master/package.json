@@ -25,5 +25,14 @@
     "@babel/core": "^7.8.6",
     "babel-preset-expo": "~8.1.0"
   },
-  "private": true
+  "private": true,
+  "name": "reactnative-many-demos-master",
+  "description": "## How to use - Clone or fork the project - npm install - nmp start - follow the instructions on the info-page",
+  "version": "1.0.0",
+  "directories": {
+    "example": "examples"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
