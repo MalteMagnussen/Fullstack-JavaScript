@@ -18,7 +18,7 @@ FetchDemo = () => {
       }
     };
     getMovies();
-  });
+  }, []);
 
   return (
     <View style={{ flex: 1, paddingTop: 22 }}>

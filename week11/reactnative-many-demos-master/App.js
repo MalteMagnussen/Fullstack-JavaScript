@@ -15,6 +15,7 @@ import FlatListScreen from "./examples/flatList";
 import SectionlistScreen from "./examples/SectionList";
 import TouchableHighlightScreen from "./examples/touchableHighlight";
 import TouchableOpacityScreen from "./examples/touchableOpacity";
+import LocationScreen from "./examples/location";
 
 function HomeScreen({ navigation }) {
   return (
@@ -84,6 +85,10 @@ function HomeScreen({ navigation }) {
           title="Go to Fetch Demo "
           onPress={() => navigation.navigate("FetchDemo")}
         />
+        <Button
+          title="Go to Location Demo"
+          onPress={() => navigation.navigate("LocationDemo")}
+        />
       </ScrollView>
     </View>
   );
@@ -125,6 +130,7 @@ function App() {
         <Stack.Screen name="FlatlistDemo" component={FlatListScreen} />
         <Stack.Screen name="SectionListDemo" component={SectionlistScreen} />
         <Stack.Screen name="FetchDemo" component={HttpViewScreen} />
+        <Stack.Screen name="LocationDemo" component={LocationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
