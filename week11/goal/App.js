@@ -4,28 +4,18 @@ import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState("");
   const [courseGoals, setCourseGoals] = useState([]);
 
-  const goalInputHandler = (enteredText) => {
-    setEnteredGoal(enteredText);
-  };
-
-  const addGoalHandler = () => {
+  const addGoalHandler = (enteredGoal) => {
     setCourseGoals((courseGoals) => [
       ...courseGoals,
       { id: Math.random().toString(), value: enteredGoal },
     ]);
-    setEnteredGoal("");
   };
 
   return (
     <View style={styles.screen}>
-      <GoalInput
-        goalInputHandler={goalInputHandler}
-        addGoalHandler={addGoalHandler}
-        enteredGoal={enteredGoal}
-      />
+      <GoalInput addGoalHandler={addGoalHandler} />
       <FlatList
         data={courseGoals}
         renderItem={(item) => <GoalItem title={item.item.value} />}
