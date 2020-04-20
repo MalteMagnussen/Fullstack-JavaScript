@@ -14,14 +14,14 @@ const polygonForClient = {
   })(),
 };
 //Returns a polygon, representing the gameArea
-router.get("/geoapi/gamearea", (req, res) => {
+router.get("/gamearea", (req, res) => {
   res.json(polygonForClient);
 });
 
 /**
  * Returns whether you're inside area yourself.
  */
-router.get("/geoapi/isuserinarea/:lon/:lat", function (req, res) {
+router.get("/isuserinarea/:lon/:lat", function (req, res) {
   const isInside = gju.pointInPolygon(
     {
       type: "Point",
@@ -41,7 +41,7 @@ router.get("/geoapi/isuserinarea/:lon/:lat", function (req, res) {
 /**
  * Returns players within radius.
  */
-router.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad", function (req, res) {
+router.get("/findNearbyPlayers/:lon/:lat/:rad", function (req, res) {
   const lon = Number(req.params.lon);
   const lat = Number(req.params.lat);
   const rad = Number(req.params.rad);
@@ -55,7 +55,7 @@ router.get("/geoapi/findNearbyPlayers/:lon/:lat/:rad", function (req, res) {
   res.json(result);
 });
 
-router.get("/geoapi/distanceToUser/:lon/:lat/:username", function (req, res) {
+router.get("/distanceToUser/:lon/:lat/:username", function (req, res) {
   const { lon, lat, username } = req.params;
   const point = { type: "Point", coordinates: [Number(lon), Number(lat)] };
   const user = players.find((player: any) => {

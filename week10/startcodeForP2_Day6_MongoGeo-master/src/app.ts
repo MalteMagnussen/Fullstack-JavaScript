@@ -15,9 +15,11 @@ app.use(express.json());
 //let userAPIRouter = require('./routes/userApi');
 let userAPIRouter = require("./routes/userApiDB");
 let gameAPIRouter = require("./routes/gameAPI");
+let geoAPIRouter = require("./routes/geoAPI");
 
 app.use("/api/users", userAPIRouter);
 app.use("/gameapi", gameAPIRouter);
+app.use("/geoapi", geoAPIRouter);
 
 app.get("/api/dummy", (req, res) => {
   res.json({ msg: "Hello" });
