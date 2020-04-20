@@ -254,7 +254,7 @@ export default class GameFacade {
             location: { type: "Point", coordinates: [lon, lat] },
           },
         },
-        { returnOriginal: false }
+        { upsert: true, returnOriginal: false }
       );
       if (found === null) {
         throw new ApiError("Could not update position", 400);
