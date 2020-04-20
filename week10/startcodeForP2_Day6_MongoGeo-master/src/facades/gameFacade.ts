@@ -245,21 +245,16 @@ export default class GameFacade {
     lat: number
   ): Promise<any> {
     try {
-      //If loggedin update (or create if this is the first login) his position
-      const point = { type: "Point", coordinates: [lon, lat] };
-      const date = new Date();
-
-      //const position = { lastUpdated: date, userName, location: point } //missing name
       const found = await positionCollection.findOneAndUpdate(
         { userName },
         {
           $set: {
-            lastUpdated: date,
+            lastUpdated: new Date(),
             userName,
-            location: point,
+            location: { type: "Point", coordinates: [lon, lat] },
           },
         },
-        { /*upsert: true*/ returnOriginal: false }
+        { returnOriginal: false }
       );
       if (found === null) {
         throw new ApiError("Could not update position", 400);
@@ -272,7 +267,6 @@ export default class GameFacade {
       };
       return formatted;
     } catch (err) {
-      //console.log(err)
       throw err;
     }
   }
