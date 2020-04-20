@@ -12,13 +12,24 @@ import UserFacade from "../facades/userFacadeWithDB";
   gameFacade.setDatabase(client);
 })();
 
+router.post("/updatePosition", async (req, res, next) => {
+  try {
+    const position = await gameFacade.updatePositionSimple(
+      req.body.userName,
+      req.body.lon,
+      req.body.lat
+    );
+    res.send(position);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/nearbyplayers", async function (req, res, next) {
   /*
   {"userName":"team1", "password":"secret", "lat":3, "lon": 5,"distance": 3}
  */
   try {
-    //Todo call your facade method
-    // throw new Error("Not Yet Implemented")
     const nearbyPlayers = await gameFacade.nearbyPlayers(
       req.body.userName,
       req.body.password,
