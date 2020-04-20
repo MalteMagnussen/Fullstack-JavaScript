@@ -42,6 +42,7 @@ router.post("/nearbyplayers", async function (req, res, next) {
     next(err);
   }
 });
+
 router.post("/getPostIfReached", async function (req, res, next) {
   /*
 Request JSON: 
