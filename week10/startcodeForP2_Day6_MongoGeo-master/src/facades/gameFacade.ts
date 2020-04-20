@@ -234,4 +234,46 @@ export default class GameFacade {
     const newPost: any = status.ops;
     return newPost as IPost;
   }
+
+  /*
+  Implement and test a new endpoint which will allow a client to update its location.
+  send userName (match document) and longitude, latitude.
+  */
+  static async updatePositionSimple(
+    userName: string,
+    lon: number,
+    lat: number
+  ): Promise<any> {
+    try {
+      //If loggedin update (or create if this is the first login) his position
+      const point = { type: "Point", coordinates: [lon, lat] };
+      const date = new Date();
+
+      //const position = { lastUpdated: date, userName, location: point } //missing name
+      const found = await positionCollection.findOneAndUpdate(
+        { userName },
+        {
+          $set: {
+            lastUpdated: date,
+            userName,
+            location: point,
+          },
+        },
+        { /*upsert: true*/ returnOriginal: false }
+      );
+      if (found === null) {
+        throw new ApiError("Could not update position", 400);
+      }
+      const formatted: IPosition = {
+        lastUpdated: found.value.lastUpdated,
+        userName: found.value.userName,
+        name: found.value.name,
+        location: found.value.location,
+      };
+      return formatted;
+    } catch (err) {
+      //console.log(err)
+      throw err;
+    }
+  }
 }
