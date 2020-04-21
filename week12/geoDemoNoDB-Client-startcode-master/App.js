@@ -1,8 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Platform, Text, View, StyleSheet, TouchableHighlight, Alert } from 'react-native';
-import * as Location from 'expo-location';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import Constants from 'expo-constants';
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Platform,
+  Text,
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  Alert,
+} from "react-native";
+import * as Location from "expo-location";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import Constants from "expo-constants";
 import facade from "./serverFacade";
 
 const SERVER_URL = "https://1bf1238a.ngrok.io";
@@ -13,12 +20,11 @@ const MyButton = ({ txt, onPressButton }) => {
       <Text style={styles.touchableTxt}>{txt}</Text>
     </TouchableHighlight>
   );
-}
+};
 
 export default App = () => {
-
   //HOOKS
-  const [position, setPosition] = useState({ latitude: null, longitude: null })
+  const [position, setPosition] = useState({ latitude: null, longitude: null });
   const [errorMessage, setErrorMessage] = useState(null);
   const [gameArea, setGameArea] = useState([]);
   const [region, setRegion] = useState(null);
@@ -26,10 +32,9 @@ export default App = () => {
   const [status, setStatus] = useState("");
   let mapRef = useRef(null);
 
-
   useEffect(() => {
-
-  }, [])
+    getLocationAsync();
+  }, []);
 
   async function getGameArea() {
     //Fetch gameArea via the facade, and call this method from within (top) useEffect
@@ -37,6 +42,19 @@ export default App = () => {
 
   getLocationAsync = async () => {
     //Request permission for users location, get the location and call this method from useEffect
+    let { status } = await Location.requestPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMessage("Permission to access location was denied");
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({
+      enableHighAccuracy: true,
+    });
+    setPosition({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
   };
 
   /*
@@ -44,24 +62,25 @@ export default App = () => {
   */
   onMapPress = async (event) => {
     //Get location from where user pressed on map, and check it against the server
-  }
+  };
 
   onCenterGameArea = () => {
     // (RED) Center map around the gameArea fetched from the backend
-    Alert.alert("Message", "Should center map around the gameArea")
-  }
+    Alert.alert("Message", "Should center map around the gameArea");
+  };
 
   sendRealPosToServer = async () => {
     //Upload users current position to the isuserinarea endpoint and present result
-    Alert.alert("Message", "Should send users location to the 'isuserinarea' endpoint")
-  }
+    Alert.alert(
+      "Message",
+      "Should send users location to the 'isuserinarea' endpoint"
+    );
+  };
 
   const info = serverIsUp ? status : " Server is not up";
   return (
     <View style={{ flex: 1, paddingTop: 20 }}>
-
-      {!region && <Text style={styles.fetching}>
-        .. Fetching data</Text>}
+      {!region && <Text style={styles.fetching}>.. Fetching data</Text>}
 
       {/* Add MapView */}
 
@@ -70,38 +89,44 @@ export default App = () => {
       </Text>
       <Text style={{ flex: 1, textAlign: "center" }}>{info}</Text>
 
-      <MyButton style={{ flex: 2 }} onPressButton={sendRealPosToServer}
-        txt="Upload real Position" />
+      <MyButton
+        style={{ flex: 2 }}
+        onPressButton={sendRealPosToServer}
+        txt="Upload real Position"
+      />
 
-      <MyButton style={{ flex: 2 }} onPressButton={() => onCenterGameArea()}
-        txt="Show Game Area" />
+      <MyButton
+        style={{ flex: 2 }}
+        onPressButton={() => onCenterGameArea()}
+        txt="Show Game Area"
+      />
     </View>
   );
-
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: "#ecf0f1",
   },
   touchable: { backgroundColor: "#4682B4", margin: 3 },
-  touchableTxt : { fontSize: 22, textAlign: "center", padding: 5 },
-  
+  touchableTxt: { fontSize: 22, textAlign: "center", padding: 5 },
+
   fetching: {
-    fontSize: 35, flex: 14,
+    fontSize: 35,
+    flex: 14,
     flexDirection: "row",
-    justifyContent: 'center',
+    justifyContent: "center",
     alignItems: "center",
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
   },
   paragraph: {
     margin: 24,
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
