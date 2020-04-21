@@ -49,7 +49,7 @@
     "@types/geojson": "^7946.0.7",
     "@types/mocha": "^5.2.7",
     "@types/mongodb": "^3.3.14",
-    "@types/node": "^13.1.4",
+    "@types/node": "^13.13.1",
     "@types/node-fetch": "^2.5.5",
     "chai": "^4.2.0",
     "mocha": "^7.1.1",
