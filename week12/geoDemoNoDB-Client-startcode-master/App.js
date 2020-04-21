@@ -97,6 +97,8 @@ export default App = () => {
           onPress={onMapPress}
           mapType="standard"
           region={region}
+          showsUserLocation
+          showsCompass
         >
           {/*App MapView.Polygon to show gameArea*/}
 
