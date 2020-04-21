@@ -55,6 +55,13 @@ export default App = () => {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
     });
+
+    setRegion({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
   };
 
   /*
@@ -83,6 +90,19 @@ export default App = () => {
       {!region && <Text style={styles.fetching}>.. Fetching data</Text>}
 
       {/* Add MapView */}
+      {region && (
+        <MapView
+          ref={mapRef}
+          style={{ flex: 14 }}
+          onPress={onMapPress}
+          mapType="standard"
+          region={region}
+        >
+          {/*App MapView.Polygon to show gameArea*/}
+
+          {/*App MapView.Marker to show users current position*/}
+        </MapView>
+      )}
 
       <Text style={{ flex: 1, textAlign: "center", fontWeight: "bold" }}>
         Your position (lat,long): {position.latitude}, {position.longitude}
