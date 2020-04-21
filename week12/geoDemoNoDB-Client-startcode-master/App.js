@@ -101,10 +101,19 @@ export default App = () => {
 
   sendRealPosToServer = async () => {
     //Upload users current position to the isuserinarea endpoint and present result
-    Alert.alert(
-      "Message",
-      "Should send users location to the 'isuserinarea' endpoint"
-    );
+    // Alert.alert(
+    //   "Message",
+    //   "Should send users location to the 'isuserinarea' endpoint"
+    // );
+    const lat = position.latitude;
+    const lon = position.longitude;
+    try {
+      const status = await facade.isUserInArea(lon, lat);
+      showStatusFromServer(setStatus, status);
+    } catch (err) {
+      setErrorMessage("Could not get result from server");
+      setServerIsUp(false);
+    }
   };
 
   const info = serverIsUp ? status : " Server is not up";
