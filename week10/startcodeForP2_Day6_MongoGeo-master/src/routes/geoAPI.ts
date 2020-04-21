@@ -11,7 +11,7 @@ const router = express.Router();
 const polygonForClient = {
   coordinates: gameArea.coordinates[0].map((point: any) => {
     return { latitude: point[1], longitude: point[0] };
-  })(),
+  }),
 };
 //Returns a polygon, representing the gameArea
 router.get("/gamearea", (req, res) => {
