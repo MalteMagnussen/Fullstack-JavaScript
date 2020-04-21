@@ -36,8 +36,19 @@ export default App = () => {
     getLocationAsync();
   }, []);
 
+  useEffect(() => {
+    getGameArea();
+  }, []);
+
   async function getGameArea() {
     //Fetch gameArea via the facade, and call this method from within (top) useEffect
+    try {
+      const area = await facade.fetchGameArea();
+      setGameArea(area);
+      setServerIsUp(true);
+    } catch (err) {
+      setErrorMessage("Could not fetch GameArea");
+    }
   }
 
   getLocationAsync = async () => {
