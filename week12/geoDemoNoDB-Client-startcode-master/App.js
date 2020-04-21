@@ -103,6 +103,14 @@ export default App = () => {
           {/*App MapView.Polygon to show gameArea*/}
 
           {/*App MapView.Marker to show users current position*/}
+          <MapView.Marker
+            title="This is your position"
+            pinColor="blue"
+            coordinate={{
+              longitude: position.longitude,
+              latitude: position.latitude,
+            }}
+          />
         </MapView>
       )}
 
