@@ -40,6 +40,14 @@ export default App = () => {
     getGameArea();
   }, []);
 
+  const centerOnRegion = () => {
+    if (region) mapRef.current.animateToRegion(region, 1000);
+  };
+
+  useEffect(() => {
+    centerOnRegion();
+  }, [region]);
+
   async function getGameArea() {
     //Fetch gameArea via the facade, and call this method from within (top) useEffect
     try {
@@ -139,7 +147,7 @@ export default App = () => {
           style={{ flex: 14 }}
           onPress={onMapPress}
           mapType="standard"
-          region={region}
+          // region={region}
           showsUserLocation
           showsCompass
         >
