@@ -80,6 +80,17 @@ export default App = () => {
   */
   onMapPress = async (event) => {
     //Get location from where user pressed on map, and check it against the server
+
+    const coordinate = event.nativeEvent.coordinate;
+    const lon = coordinate.longitude;
+    const lat = coordinate.latitude;
+    try {
+      const status = await facade.isUserInArea(lon, lat);
+      showStatusFromServer(setStatus, status);
+    } catch (err) {
+      Alert.alert("Error", "Server could not be reached");
+      setServerIsUp(false);
+    }
   };
 
   onCenterGameArea = () => {
