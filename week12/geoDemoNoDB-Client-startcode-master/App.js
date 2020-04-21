@@ -101,6 +101,14 @@ export default App = () => {
           showsCompass
         >
           {/*App MapView.Polygon to show gameArea*/}
+          {serverIsUp && (
+            <MapView.Polygon
+              coordinates={gameArea}
+              strokeWidth={1}
+              onPress={onMapPress}
+              fillColor="rgba(128, 153, 177, 0.5)"
+            />
+          )}
 
           {/*App MapView.Marker to show users current position*/}
           <MapView.Marker
