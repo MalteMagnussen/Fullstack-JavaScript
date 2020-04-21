@@ -84,7 +84,19 @@ export default App = () => {
 
   onCenterGameArea = () => {
     // (RED) Center map around the gameArea fetched from the backend
-    Alert.alert("Message", "Should center map around the gameArea");
+    // Alert.alert("Message", "Should center map around the gameArea");
+    //Hardcoded, should be calculated as center of polygon received from server
+    const latitude = 55.777055745928664;
+    const longitude = 12.55897432565689;
+    mapRef.current.animateToRegion(
+      {
+        latitude,
+        longitude,
+        latitudeDelta: 0.002,
+        longitudeDelta: 0.04,
+      },
+      1000
+    );
   };
 
   sendRealPosToServer = async () => {
