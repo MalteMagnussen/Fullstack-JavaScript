@@ -25,7 +25,6 @@ import * as Location from "expo-location";
 
 const MyLocation = () => {
   const [locationResult, setLocationResult] = useState(null);
-
   useEffect(() => {
     (async () => {
       await Permissions.askAsync(Permissions.LOCATION);

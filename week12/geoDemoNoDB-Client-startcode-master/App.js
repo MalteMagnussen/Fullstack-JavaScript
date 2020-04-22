@@ -91,10 +91,10 @@ export default App = () => {
       setErrorMessage("Permission to access location was denied");
       return;
     }
-
     let location = await Location.getCurrentPositionAsync({
       enableHighAccuracy: true,
     });
+
     setPosition({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
