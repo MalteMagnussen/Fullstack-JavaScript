@@ -19,6 +19,10 @@ ServerFacade = () => {
   async function findNearbyPlayers(userName, password, lat, lon, distance) {
     const status = await fetch(`${SERVER_URL}/gameapi/nearbyplayers`, {
       method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ userName, password, lat, lon, distance }),
     }).then((res) => res.json());
     return status;

@@ -14,7 +14,7 @@ import Constants from "expo-constants";
 import facade from "./serverFacade";
 import LoginModal from "./components/loginModal";
 
-const SERVER_URL = "https://1bf1238a.ngrok.io";
+// const SERVER_URL = "https://1bf1238a.ngrok.io";
 
 const MyButton = ({ txt, onPressButton }) => {
   return (
@@ -37,7 +37,7 @@ export default App = () => {
     password: "secret",
   });
   const [loginMode, setLoginMode] = useState(false);
-  const [distance, setDistance] = useState("100");
+  const [distance, setDistance] = useState("1000");
   const [otherPlayers, setOtherPlayers] = useState(null);
   let mapRef = useRef(null);
 
@@ -54,6 +54,7 @@ export default App = () => {
   }, []);
 
   const findNearbyPlayers = async () => {
+    // findNearbyPlayers(userName, password, lat, lon, distance)
     const otherPlayers = await facade.findNearbyPlayers(
       loginInfo.userName,
       loginInfo.password,
