@@ -3,10 +3,16 @@ import { StyleSheet, View, TextInput, Button, Modal } from "react-native";
 
 const LoginModal = (props) => {
   const usernameHandler = (enteredText) => {
-    props.setLoginInfo({ userName: enteredText });
+    props.setLoginInfo({
+      password: props.loginInfo.password,
+      userName: enteredText,
+    });
   };
   const passwordHandler = (enteredText) => {
-    props.setLoginInfo({ password: enteredText });
+    props.setLoginInfo({
+      userName: props.loginInfo.userName,
+      password: enteredText,
+    });
   };
 
   return (
