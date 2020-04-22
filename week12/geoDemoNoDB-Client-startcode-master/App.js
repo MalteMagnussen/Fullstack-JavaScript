@@ -38,7 +38,7 @@ export default App = () => {
   });
   const [loginMode, setLoginMode] = useState(false);
   const [distance, setDistance] = useState("10000");
-  const [otherPlayers, setOtherPlayers] = useState(null);
+  const [otherPlayers, setOtherPlayers] = useState([]);
   let mapRef = useRef(null);
 
   const closeModal = () => {
@@ -195,6 +195,16 @@ export default App = () => {
               latitude: position.latitude,
             }}
           />
+          {otherPlayers.length > 0 &&
+            otherPlayers.map((player) => (
+              <MapView.Marker
+                title={`Position of ${player.name}`}
+                coordinate={{
+                  longitude: player.lon,
+                  latitude: player.lat,
+                }}
+              />
+            ))}
         </MapView>
       )}
 
