@@ -196,8 +196,9 @@ export default App = () => {
             }}
           />
           {otherPlayers.length > 0 &&
-            otherPlayers.map((player) => (
+            otherPlayers.map((player, index) => (
               <MapView.Marker
+                key={index}
                 title={`Position of ${player.name}`}
                 coordinate={{
                   longitude: player.lon,
