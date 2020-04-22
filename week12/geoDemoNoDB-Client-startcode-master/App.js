@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   Alert,
+  TextInput,
 } from "react-native";
 import * as Location from "expo-location";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
@@ -32,10 +33,12 @@ export default App = () => {
   const [serverIsUp, setServerIsUp] = useState(false);
   const [status, setStatus] = useState("");
   const [loginInfo, setLoginInfo] = useState({
-    userName: "",
-    password: "",
+    userName: "t1",
+    password: "secret",
   });
   const [loginMode, setLoginMode] = useState(false);
+  const [distance, setDistance] = useState("100");
+  const [otherPlayers, setOtherPlayers] = useState(null);
   let mapRef = useRef(null);
 
   const closeModal = () => {
@@ -49,6 +52,17 @@ export default App = () => {
   useEffect(() => {
     getGameArea();
   }, []);
+
+  const findNearbyPlayers = async () => {
+    const otherPlayers = await facade.findNearbyPlayers(
+      loginInfo.userName,
+      loginInfo.password,
+      position.latitude,
+      position.longitude,
+      distance
+    );
+    setOtherPlayers(otherPlayers);
+  };
 
   const centerOnRegion = () => {
     if (region) mapRef.current.animateToRegion(region, 1000);
@@ -195,10 +209,25 @@ export default App = () => {
       </Text>
       <Text style={{ flex: 1, textAlign: "center" }}>{info}</Text>
       <Text style={{ flex: 1, textAlign: "center", fontWeight: "bold" }}>
-        Your Login Info: UserName: {loginInfo.userName}, PassWord:{" "}
-        {loginInfo.password}
+        Info: UserName: {loginInfo.userName}, PassWord: {loginInfo.password}{" "}
+        Distance: {distance}
       </Text>
-
+      <Text style={{ flex: 1, textAlign: "center", fontWeight: "bold" }}>
+        Other Players: {JSON.stringify(otherPlayers)}
+      </Text>
+      <View style={{ flexDirection: "row" }}>
+        <TextInput
+          placeholder="Set Distance"
+          style={styles.input}
+          value={distance}
+          onChangeText={setDistance}
+        />
+        <MyButton
+          style={{ flex: 2 }}
+          onPressButton={findNearbyPlayers}
+          txt="Find Nearby Players"
+        />
+      </View>
       <View style={{ flexDirection: "row" }}>
         <MyButton
           style={{ flex: 2 }}
@@ -245,6 +274,26 @@ const styles = StyleSheet.create({
     margin: 24,
     fontSize: 18,
     textAlign: "center",
+  },
+  inputContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  input: {
+    borderBottomColor: "black",
+    borderWidth: 1,
+    padding: 10,
+    width: "40%",
+    marginBottom: 10,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "55%",
+  },
+  button: {
+    width: "40%",
   },
 });
 
