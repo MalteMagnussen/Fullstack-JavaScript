@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "client-location-noDB",
-    "slug": "client-location-noDB",
+    "name": "MalteApp",
+    "slug": "malte",
     "platforms": [
       "ios",
       "android",
@@ -23,6 +23,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Maltes front-end app for Periode 3",
+    "githubUrl": "https://github.com/MalteMagnussen/Fullstack-JavaScript/tree/master/week12/geoDemoNoDB-Client-startcode-master"
   }
 }
