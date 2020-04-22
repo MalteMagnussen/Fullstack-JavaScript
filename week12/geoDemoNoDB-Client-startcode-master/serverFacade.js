@@ -23,7 +23,13 @@ ServerFacade = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userName, password, lat, lon, distance }),
+      body: JSON.stringify({
+        userName,
+        password,
+        lat,
+        lon,
+        distance: Number(distance),
+      }),
     };
     const fetchResponse = await fetch(
       `${SERVER_URL}/gameapi/nearbyplayers`,

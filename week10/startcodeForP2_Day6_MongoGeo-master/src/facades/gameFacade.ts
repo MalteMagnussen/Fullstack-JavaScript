@@ -117,14 +117,14 @@ export default class GameFacade {
         point,
         distance
       );
-
+      //console.log(nearbyPlayers);
       //If anyone found, format acording to requirements
       const formatted = nearbyPlayers.map((player) => {
         return {
           userName: player.userName,
           name: player.name,
-          lat: latitude,
-          lon: longitude,
+          lat: player.location.coordinates[1],
+          lon: player.location.coordinates[0],
         };
       });
       return formatted;
@@ -155,6 +155,7 @@ export default class GameFacade {
         userName: { $ne: clientUserName },
         location,
       });
+
       return found.toArray();
     } catch (err) {
       throw err;

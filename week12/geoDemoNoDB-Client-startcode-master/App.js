@@ -37,7 +37,7 @@ export default App = () => {
     password: "secret",
   });
   const [loginMode, setLoginMode] = useState(false);
-  const [distance, setDistance] = useState("1000");
+  const [distance, setDistance] = useState("10000");
   const [otherPlayers, setOtherPlayers] = useState(null);
   let mapRef = useRef(null);
 
@@ -55,14 +55,14 @@ export default App = () => {
 
   const findNearbyPlayers = async () => {
     // findNearbyPlayers(userName, password, lat, lon, distance)
-    const otherPlayers = await facade.findNearbyPlayers(
+    const positions = await facade.findNearbyPlayers(
       loginInfo.userName,
       loginInfo.password,
       position.latitude,
       position.longitude,
       distance
     );
-    setOtherPlayers(otherPlayers);
+    setOtherPlayers(positions);
   };
 
   const centerOnRegion = () => {
@@ -204,7 +204,12 @@ export default App = () => {
         setLoginInfo={setLoginInfo}
         loginInfo={loginInfo}
       />
-
+      <Text
+        numberOfLines={5}
+        style={{ flex: 3, textAlign: "center", fontWeight: "bold" }}
+      >
+        Other Players: {JSON.stringify(otherPlayers)}
+      </Text>
       <Text style={{ flex: 1, textAlign: "center", fontWeight: "bold" }}>
         Your position (lat,long): {position.latitude}, {position.longitude}
       </Text>
@@ -213,9 +218,7 @@ export default App = () => {
         Info: UserName: {loginInfo.userName}, PassWord: {loginInfo.password}{" "}
         Distance: {distance}
       </Text>
-      <Text style={{ flex: 1, textAlign: "center", fontWeight: "bold" }}>
-        Other Players: {JSON.stringify(otherPlayers)}
-      </Text>
+
       <View style={{ flexDirection: "row" }}>
         <TextInput
           placeholder="Set Distance"
