@@ -199,17 +199,19 @@ export default App = () => {
         {loginInfo.password}
       </Text>
 
-      <MyButton
-        style={{ flex: 2 }}
-        onPressButton={sendRealPosToServer}
-        txt="Upload real Position"
-      />
+      <View style={{ flexDirection: "row" }}>
+        <MyButton
+          style={{ flex: 2 }}
+          onPressButton={sendRealPosToServer}
+          txt="Upload real Position"
+        />
 
-      <MyButton
-        style={{ flex: 2 }}
-        onPressButton={() => onCenterGameArea()}
-        txt="Show Game Area"
-      />
+        <MyButton
+          style={{ flex: 2 }}
+          onPressButton={() => onCenterGameArea()}
+          txt="Show Game Area"
+        />
+      </View>
 
       <MyButton
         style={{ flex: 2 }}
