@@ -17,15 +17,21 @@ ServerFacade = () => {
 
   // {"userName":"team1", "password":"secret", "lat":3, "lon": 5,"distance": 3}
   async function findNearbyPlayers(userName, password, lat, lon, distance) {
-    const status = await fetch(`${SERVER_URL}/gameapi/nearbyplayers`, {
-      method: "post",
+    const settings = {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ userName, password, lat, lon, distance }),
-    }).then((res) => res.json());
-    return status;
+    };
+    const fetchResponse = await fetch(
+      `${SERVER_URL}/gameapi/nearbyplayers`,
+      settings
+    );
+    const data = await fetchResponse.json();
+
+    return data;
   }
 
   return {
