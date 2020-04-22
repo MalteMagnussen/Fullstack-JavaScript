@@ -11,6 +11,7 @@ import * as Location from "expo-location";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Constants from "expo-constants";
 import facade from "./serverFacade";
+import LoginModal from "./components/loginModal";
 
 const SERVER_URL = "https://1bf1238a.ngrok.io";
 
@@ -30,7 +31,16 @@ export default App = () => {
   const [region, setRegion] = useState(null);
   const [serverIsUp, setServerIsUp] = useState(false);
   const [status, setStatus] = useState("");
+  const [loginInfo, setLoginInfo] = useState({
+    userName: "",
+    password: "",
+  });
+  const [loginMode, setLoginMode] = useState(false);
   let mapRef = useRef(null);
+
+  const closeModal = () => {
+    setLoginMode(false);
+  };
 
   useEffect(() => {
     getLocationAsync();
@@ -173,10 +183,21 @@ export default App = () => {
         </MapView>
       )}
 
+      <LoginModal
+        visible={loginMode}
+        closeModal={closeModal}
+        setLoginInfo={setLoginInfo}
+        loginInfo={loginInfo}
+      />
+
       <Text style={{ flex: 1, textAlign: "center", fontWeight: "bold" }}>
         Your position (lat,long): {position.latitude}, {position.longitude}
       </Text>
       <Text style={{ flex: 1, textAlign: "center" }}>{info}</Text>
+      <Text style={{ flex: 1, textAlign: "center", fontWeight: "bold" }}>
+        Your Login Info: UserName: {loginInfo.userName}, PassWord:{" "}
+        {loginInfo.password}
+      </Text>
 
       <MyButton
         style={{ flex: 2 }}
@@ -188,6 +209,12 @@ export default App = () => {
         style={{ flex: 2 }}
         onPressButton={() => onCenterGameArea()}
         txt="Show Game Area"
+      />
+
+      <MyButton
+        style={{ flex: 2 }}
+        onPressButton={() => setLoginMode(true)}
+        txt="Set Login Info"
       />
     </View>
   );
