@@ -12,15 +12,6 @@ THIS ALSO MAKES AUTOMATIC DOCUMENTATION
 NEXT LAYER DOWN IS RESOLVERS.JS IN SAME FOLDER
 */
 
-/*
-# # const schema = buildSchema(`
-# #   type Query {
-# #     hello: String
-# #   }
-# # `)
-# # export default schema;
-*/
-
 // We've already defined Types with Mongoose, but more typing here.
 // ! means required
 // Enum means possible options for that category
