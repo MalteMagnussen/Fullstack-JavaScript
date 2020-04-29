@@ -11,6 +11,10 @@ import { makeExecutableSchema } from "graphql-tools";
 # # export default schema;
 */
 
+// We've already defined Types with Mongoose, but more typing here.
+// ! means required
+// Enum means possible options for that category
+// This also helps with documentation.
 const typeDefs = `
 
   type Friend {

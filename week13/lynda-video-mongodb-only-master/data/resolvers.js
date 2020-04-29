@@ -1,6 +1,9 @@
-import mongoose from "mongoose";
+//import mongoose from "mongoose";
 import { Friends } from "./dbConnectors";
 
+/*
+This is where we define the behavior for the Queries. 
+*/
 export const resolvers = {
   Query: {
     getOneFriend: (root, { id }) => {

@@ -11,6 +11,7 @@ app.get("/", (req, res) => {
 
 //const root = resolvers;
 
+// GraphQL only uses ONE endpoint. Very smart.
 app.use(
   "/graphql",
   graphqlHTTP({
