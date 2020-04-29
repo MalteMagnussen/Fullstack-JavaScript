@@ -1,6 +1,6 @@
+const path = require("path");
 require("dotenv").config({ path: path.join(process.cwd(), ".env") });
 import mongoose from "mongoose";
-
 const CONNECTION = process.env.CONNECTION; //"ADD YOUR OWN CONNECTION STRING"
 
 mongoose.connect(CONNECTION, {
