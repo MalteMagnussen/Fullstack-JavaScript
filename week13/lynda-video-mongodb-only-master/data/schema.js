@@ -2,12 +2,14 @@ import { buildSchema } from "graphql";
 import { resolvers } from "./resolvers";
 import { makeExecutableSchema } from "graphql-tools";
 
-# const schema = buildSchema(`
-#   type Query {
-#     hello: String
-#   }
-# `)
-# export default schema;
+/*
+# # const schema = buildSchema(`
+# #   type Query {
+# #     hello: String
+# #   }
+# # `)
+# # export default schema;
+*/
 
 const typeDefs = `
 
