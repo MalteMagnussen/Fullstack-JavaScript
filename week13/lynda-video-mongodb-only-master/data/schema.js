@@ -1,6 +1,6 @@
-import {buildSchema} from "graphql";
-import {resolvers} from "./resolvers"
-import {makeExecutableSchema} from "graphql-tools"
+import { buildSchema } from "graphql";
+import { resolvers } from "./resolvers";
+import { makeExecutableSchema } from "graphql-tools";
 
 const typeDefs = `
 
@@ -51,6 +51,6 @@ const typeDefs = `
     updateFriend(input: FriendInput): Friend
     deleteFriend(id:ID!):String
   }
-`
-const schema = makeExecutableSchema({typeDefs,resolvers})
-export {schema}
+`;
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+export { schema };
