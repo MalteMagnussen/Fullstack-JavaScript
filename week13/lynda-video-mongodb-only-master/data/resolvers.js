@@ -6,6 +6,7 @@ This is where we define the behavior for the Queries.
 This is like the Facade. This is where we do direct things on database. 
 */
 // Friends has the same methods as MongoDB usually does.
+// RESOLVERS
 export const resolvers = {
   // GETS
   Query: {
