@@ -5,6 +5,11 @@ import { schema } from "./data/schema";
 //import resolvers from "./resolversOriginal"
 const app = express();
 
+/*
+THIS IS THE "OUTER" LAYER
+TO GO DEEPER, GO TO SCHEMA.JS IN DATA FOLDER.
+*/
+
 app.get("/", (req, res) => {
   res.send("GraphQL is amazing!");
 });
@@ -15,6 +20,9 @@ app.get("/", (req, res) => {
 app.use(
   "/graphql",
   graphqlHTTP({
+    // Middleware for express;
+    // takes an options object or function as input to configure behavior,
+    // and returns an express middleware.
     schema: schema,
     //rootValue: root,
     graphiql: true, // For testing

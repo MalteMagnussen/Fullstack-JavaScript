@@ -1,6 +1,16 @@
 import { buildSchema } from "graphql";
 import { resolvers } from "./resolvers";
-import { makeExecutableSchema } from "graphql-tools";
+import { makeExecutableSchema } from "graphql-tools"; // https://github.com/ardatan/graphql-tools
+
+/*
+THIS IS WHERE WE MAKE OUR TYPE DEFINITIONS, BOTH FOR OBJECTS, AND MUTATIONS AND QUERIES. 
+A MUTATION IS A POST OR PUT OR DELETE
+A QUERY IS A GET
+
+THIS ALSO MAKES AUTOMATIC DOCUMENTATION
+
+NEXT LAYER DOWN IS RESOLVERS.JS IN SAME FOLDER
+*/
 
 /*
 # # const schema = buildSchema(`
@@ -65,5 +75,7 @@ const typeDefs = `
     deleteFriend(id:ID!):String
   }
 `;
+// https://stackoverflow.com/questions/47381519/what-is-the-difference-between-buildschema-and-makeexecutableschema
+
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 export { schema };
