@@ -4,7 +4,10 @@ import mongoose from "mongoose";
 const CONNECTION = process.env.CONNECTION; //"ADD YOUR OWN CONNECTION STRING"
 
 // Mongoose helps make the Database Connection
+// Mongo Connection
+// In video he initially uses global.Promise
 mongoose.connect(CONNECTION, {
+  // useMongoClient: true,
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
