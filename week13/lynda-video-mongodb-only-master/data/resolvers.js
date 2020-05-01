@@ -26,7 +26,10 @@ export const resolvers = {
         email: input.email,
         contacts: input.contacts,
       });
+      // This is what is assigned directly from the database.
       newFriend.id = newFriend._id;
+      // In Video he returns new Promise, but .save() saves the document and returns a promise.
+      // So this is cleaner.
       return newFriend.save();
     },
     updateFriend: (root, { input }) => {
