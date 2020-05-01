@@ -44,7 +44,7 @@ export const resolvers = {
          Notice there is no {} afterwards. 
        */
       try {
-        await Friends.findOneAndRemove({ _id: id });
+        await Friends.findOneAndRemove({ _id: id }); // _id because that is what the ID is called in MongoDB
         return `Friend with id: ${id} deleted`;
       } catch (err) {
         return `Failed to delete friend with id: ${id}`;
