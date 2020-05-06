@@ -2,9 +2,10 @@ import express from "express";
 import graphqlHTTP from "express-graphql";
 //import schema from "./data/schema"
 import { schema } from "./data/schema";
+import cors from "cors";
 //import resolvers from "./resolversOriginal"
 const app = express();
-
+app.use(cors());
 /*
 THIS IS THE "OUTER" LAYER
 TO GO DEEPER, GO TO SCHEMA.JS IN DATA FOLDER.
