@@ -13,6 +13,9 @@ export const resolvers = {
     getOneFriend: (root, { id }) => {
       return Friends.findById(id);
     },
+    allFriends: () => {
+      return Friends.find({});
+    },
   },
   // ALL MUTATIONS - PUT, POST, DELETE
   Mutation: {
